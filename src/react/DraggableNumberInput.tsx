@@ -14,6 +14,7 @@ export function DraggableNumberInput({
   const [startValue, setStartValue] = useState(0);
   const [totalMovement, setTotalMovement] = useState(0);
   const [localValue, setLocalValue] = useState(String(value));
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     // format displayed value to avoid issues with floating point decimal calculation:
@@ -46,6 +47,7 @@ export function DraggableNumberInput({
       setStartX(e.clientX);
       setStartValue(value);
       setTotalMovement(0);
+      setCursorPosition({ x: e.clientX, y: e.clientY });
 
       if (!disablePointerLock) {
         inputRef.current.requestPointerLock();
@@ -56,6 +58,16 @@ export function DraggableNumberInput({
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
+
+    if (!disablePointerLock && document.pointerLockElement) {
+      setCursorPosition((prev) => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const x = (prev.x + e.movementX + width) % width;
+        const y = (prev.y + e.movementY + height) % height;
+        return { x, y };
+      });
+    }
 
     const newMovement = disablePointerLock
       ? e.clientX - startX
@@ -122,25 +134,65 @@ export function DraggableNumberInput({
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
-    <input
-      ref={inputRef}
-      type="text"
-      inputMode="numeric"
-      pattern="-?[0-9]*\.?[0-9]*"
-      value={localValue}
-      onChange={handleInputChange}
-      onBlur={handleBlur}
-      onMouseDown={handleMouseDown}
-      onKeyDown={handleKeyDown}
-      onKeyUp={updateDelta}
-      className={`draggable-number-input ${className} ${
-        isDragging ? "dragging" : ""
-      }`}
-      style={{
-        cursor: "ew-resize",
-        userSelect: "none",
-      }}
-      {...props}
-    />
+    <>
+      <input
+        ref={inputRef}
+        type="text"
+        inputMode="numeric"
+        pattern="-?[0-9]*\.?[0-9]*"
+        value={localValue}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        onMouseDown={handleMouseDown}
+        onKeyDown={handleKeyDown}
+        onKeyUp={updateDelta}
+        className={`draggable-number-input ${className} ${
+          isDragging ? "dragging" : ""
+        }`}
+        style={{
+          cursor: "ew-resize",
+          userSelect: "none",
+        }}
+        {...props}
+        // />
+      />
+      {isDragging && !disablePointerLock && (
+        <div
+          style={{
+            position: "fixed",
+            left: 0,
+            top: 0,
+            width: "100vw",
+            height: "100vh",
+            pointerEvents: "none",
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style={{
+              position: "absolute",
+              left: cursorPosition.x,
+              top: cursorPosition.y,
+              transform: "translate(-50%, -50%)",
+              pointerEvents: "none",
+            }}
+          >
+            {/* resize-ew icon on drag  */}
+            <path
+              fill="#000"
+              stroke="#fff"
+              stroke-linejoin="round"
+              d="M6.5 9a.5.5 0 0 0-.8-.4l-4 3a.5.5 0 0 0 0 .8l4 3a.5.5 0 0 0 .8-.4v-1.5h11V15a.5.5 0 0 0 .8.4l4-3a.5.5 0 0 0 0-.8l-4-3a.5.5 0 0 0-.8.4v1.5h-11V9Z"
+              style={{
+                filter: "drop-shadow( 0px 2px 1px rgba(0, 0, 0, .35))",
+              }}
+            />
+          </svg>
+        </div>
+      )}
+    </>
   );
 }
