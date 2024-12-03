@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 export function DraggableNumberInput({
   value,
-  onChange,
+  onChange = () => {},
   className = "",
   disablePointerLock = false,
   ...props
@@ -15,7 +15,8 @@ export function DraggableNumberInput({
   const [localValue, setLocalValue] = useState(String(value));
 
   useEffect(() => {
-    // format to avoid issues with js decimal calculation, ie: .1 + .2 = .30000000000000004
+    // format displayed value to avoid issues with floating point decimal calculation:
+    // ie: .1 + .2 = .30000000000000004
     const formatted = new Intl.NumberFormat("en-US", {
       maximumFractionDigits: 6,
       useGrouping: false,
@@ -23,21 +24,13 @@ export function DraggableNumberInput({
     setLocalValue(String(formatted));
   }, [value]);
 
-  const updateValue = useCallback(
-    (newValue: number) => {
-      onChange?.(newValue);
-    },
-    [onChange]
-  );
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setLocalValue(val);
 
-    // Only update if it's a valid number
     const num = parseFloat(val);
     if (!isNaN(num)) {
-      updateValue(num);
+      onChange(num);
     }
   };
 
@@ -73,12 +66,12 @@ export function DraggableNumberInput({
       const delta = Math.floor(movementX / pixelDivisor) * shiftMultiplier;
 
       if (disablePointerLock) {
-        updateValue(startValue + delta);
+        onChange(startValue + delta);
       } else {
-        updateValue(value + Math.sign(movementX) * (e.shiftKey ? 10 : 1));
+        onChange(value + Math.sign(movementX) * (e.shiftKey ? 10 : 1));
       }
     },
-    [isDragging, startX, startValue, value, disablePointerLock, updateValue]
+    [isDragging, startX, startValue, value, disablePointerLock, onChange]
   );
 
   const handleMouseUp = useCallback(() => {
@@ -96,13 +89,13 @@ export function DraggableNumberInput({
 
       if (e.key === "ArrowUp") {
         e.preventDefault();
-        updateValue(value + increment);
+        onChange(value + increment);
       } else if (e.key === "ArrowDown") {
         e.preventDefault();
-        updateValue(value - increment);
+        onChange(value - increment);
       }
     },
-    [value, updateValue]
+    [value, onChange]
   );
 
   useEffect(() => {
