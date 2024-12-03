@@ -1,10 +1,10 @@
-import type { DraggableNumberInputProps } from './draggable-number-input.types';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type { DraggableNumberInputProps } from "./draggable-number-input.types";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 export function DraggableNumberInput({
   value,
   onChange,
-  className = '',
+  className = "",
   disablePointerLock = false,
   ...props
 }: DraggableNumberInputProps) {
@@ -12,37 +12,74 @@ export function DraggableNumberInput({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startValue, setStartValue] = useState(0);
+  const [localValue, setLocalValue] = useState(String(value));
 
-  const updateValue = useCallback((newValue: number) => {
-    onChange?.(newValue);
-  }, [onChange]);
+  useEffect(() => {
+    // format to avoid issues with js decimal calculation, ie: .1 + .2 = .30000000000000004
+    const formatted = new Intl.NumberFormat("en-US", {
+      maximumFractionDigits: 6,
+      useGrouping: false,
+    }).format(value);
+    setLocalValue(String(formatted));
+  }, [value]);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if (!inputRef.current) return;
+  const updateValue = useCallback(
+    (newValue: number) => {
+      onChange?.(newValue);
+    },
+    [onChange]
+  );
 
-    setIsDragging(true);
-    setStartX(e.clientX);
-    setStartValue(value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setLocalValue(val);
 
-    if (!disablePointerLock) {
-      inputRef.current.requestPointerLock();
+    // Only update if it's a valid number
+    const num = parseFloat(val);
+    if (!isNaN(num)) {
+      updateValue(num);
     }
-  }, [value, disablePointerLock]);
+  };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging) return;
-
-    const movementX = disablePointerLock ? e.clientX - startX : e.movementX;
-    const shiftMultiplier = e.shiftKey ? 10 : 1;
-    const pixelDivisor = e.shiftKey ? 2 : 1;
-    const delta = Math.floor(movementX / pixelDivisor) * shiftMultiplier;
-
-    if (disablePointerLock) {
-      updateValue(startValue + delta);
-    } else {
-      updateValue(value + Math.sign(movementX) * (e.shiftKey ? 10 : 1));
+  const handleBlur = () => {
+    // Reset to last valid value if input is invalid
+    if (isNaN(parseFloat(localValue))) {
+      setLocalValue(String(value));
     }
-  }, [isDragging, startX, startValue, value, disablePointerLock, updateValue]);
+  };
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (!inputRef.current) return;
+
+      setIsDragging(true);
+      setStartX(e.clientX);
+      setStartValue(value);
+
+      if (!disablePointerLock) {
+        inputRef.current.requestPointerLock();
+      }
+    },
+    [value, disablePointerLock]
+  );
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const movementX = disablePointerLock ? e.clientX - startX : e.movementX;
+      const shiftMultiplier = e.shiftKey ? 10 : 1;
+      const pixelDivisor = e.shiftKey ? 2 : 1;
+      const delta = Math.floor(movementX / pixelDivisor) * shiftMultiplier;
+
+      if (disablePointerLock) {
+        updateValue(startValue + delta);
+      } else {
+        updateValue(value + Math.sign(movementX) * (e.shiftKey ? 10 : 1));
+      }
+    },
+    [isDragging, startX, startValue, value, disablePointerLock, updateValue]
+  );
 
   const handleMouseUp = useCallback(() => {
     if (!isDragging) return;
@@ -53,26 +90,29 @@ export function DraggableNumberInput({
     }
   }, [isDragging, disablePointerLock]);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    const increment = e.shiftKey ? 10 : 1;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const increment = e.shiftKey ? 10 : 1;
 
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      updateValue(value + increment);
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      updateValue(value - increment);
-    }
-  }, [value, updateValue]);
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        updateValue(value + increment);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        updateValue(value - increment);
+      }
+    },
+    [value, updateValue]
+  );
 
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
 
       return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
       };
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
@@ -80,15 +120,18 @@ export function DraggableNumberInput({
   return (
     <input
       ref={inputRef}
-      type="number"
-      value={value}
-      onChange={(e) => updateValue(Number(e.target.value))}
+      type="text"
+      inputMode="numeric"
+      pattern="-?[0-9]*\.?[0-9]*"
+      value={localValue}
+      onChange={handleInputChange}
+      onBlur={handleBlur}
       onMouseDown={handleMouseDown}
       onKeyDown={handleKeyDown}
       className={`draggable-number-input ${className}`}
       style={{
-        cursor: isDragging ? 'ew-resize' : 'ew-resize',
-        userSelect: 'none',
+        cursor: isDragging ? "ew-resize" : "ew-resize",
+        userSelect: "none",
       }}
       {...props}
     />
