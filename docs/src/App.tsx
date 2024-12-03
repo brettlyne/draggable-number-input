@@ -20,23 +20,21 @@ function App() {
           replicate the draggable number input behavior we see in applications
           like Blender, Figma, and After Effects.
         </p>
-        <p>
-          Behaviors:
-          <ul>
-            <li>
-              drag left or right on an input (or{" "}
-              <a href="#draggable-number-input-label">label</a>) to set the
-              value
-            </li>
-            <li>use up and down arrow keys to increment and decrement</li>
-            <li>allow modifier keys to multiply the increment </li>
-            <li>
-              provide optional sensitivity setting per modifier key to more
-              easily target values (ex: in Figma while holding shift you move by
-              10 and sensitivity is .5)
-            </li>
-          </ul>
-        </p>
+        <p>Behaviors:</p>
+
+        <ul>
+          <li>
+            drag left or right on an input (or{" "}
+            <a href="#draggable-number-input-label">label</a>) to set the value
+          </li>
+          <li>use up and down arrow keys to increment and decrement</li>
+          <li>allow modifier keys to multiply the increment </li>
+          <li>
+            provide optional sensitivity setting per modifier key to more easily
+            target values (ex: in Figma while holding shift you move by 10 and
+            sensitivity is .5)
+          </li>
+        </ul>
 
         <h2 id="draggable-number-input">Draggable Number Input</h2>
         <h3 id="input-examples">Example: Default Settings</h3>
