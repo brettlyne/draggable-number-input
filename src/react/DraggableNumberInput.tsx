@@ -1,4 +1,3 @@
-import { Key } from "readline";
 import type { DraggableNumberInputProps } from "./draggable-number-input.types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -55,66 +54,60 @@ export function DraggableNumberInput({
     [value, disablePointerLock]
   );
 
-  // update delta when shift key is pressed
-  const updateDelta = (e: React.KeyboardEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
-    const shiftMultiplier = e.shiftKey ? 10 : 1;
-    const pixelDivisor = e.shiftKey ? 2 : 1;
-    const delta = Math.floor(totalMovement / pixelDivisor) * shiftMultiplier;
-    onChange(startValue + delta);
+
+    const newMovement = disablePointerLock
+      ? e.clientX - startX
+      : totalMovement + e.movementX;
+    setTotalMovement(newMovement);
+
+    applyMovement(newMovement, e);
   };
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging) return;
+  // update value when shift key is pressed / released
+  const updateDelta = (e: React.KeyboardEvent) => {
+    if (!isDragging) return;
+    applyMovement(totalMovement, e);
+  };
 
-      const newMovement = disablePointerLock
-        ? e.clientX - startX
-        : totalMovement + e.movementX;
-      setTotalMovement(newMovement);
+  const applyMovement = (
+    newMovement: number,
+    e: React.KeyboardEvent | MouseEvent
+  ) => {
+    const multiplier = e.shiftKey ? 10 : 1;
+    const sensitivity = e.shiftKey ? 0.5 : 1;
+    const delta = newMovement * sensitivity * multiplier;
+    let newValue = startValue + delta;
+    if (newMovement > 0) {
+      newValue = Math.ceil(newValue / multiplier) * multiplier;
+    } else {
+      newValue = Math.floor(newValue / multiplier) * multiplier;
+    }
+    onChange(newValue);
+  };
 
-      const shiftMultiplier = e.shiftKey ? 10 : 1;
-      const pixelDivisor = e.shiftKey ? 2 : 1;
-      const delta = Math.floor(newMovement / pixelDivisor) * shiftMultiplier;
-
-      onChange(startValue + delta);
-    },
-    [
-      isDragging,
-      startX,
-      startValue,
-      disablePointerLock,
-      onChange,
-      totalMovement,
-    ]
-  );
-
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = () => {
     setIsDragging(false);
     setTotalMovement(0);
     if (!disablePointerLock && document.pointerLockElement) {
       document.exitPointerLock();
     }
-  }, [isDragging, disablePointerLock]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      const increment = e.shiftKey ? 10 : 1;
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const increment = e.shiftKey ? 10 : 1;
 
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        onChange(value + increment);
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        onChange(value - increment);
-      }
-      // if key is shift, trigger update
-      else if (e.key === "Shift") {
-        updateDelta(e);
-      }
-    },
-    [value, onChange]
-  );
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      onChange(value + increment);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      onChange(value - increment);
+    } else if (e.key === "Shift") {
+      updateDelta(e);
+    }
+  };
 
   useEffect(() => {
     if (isDragging) {
@@ -140,9 +133,11 @@ export function DraggableNumberInput({
       onMouseDown={handleMouseDown}
       onKeyDown={handleKeyDown}
       onKeyUp={updateDelta}
-      className={`draggable-number-input ${className}`}
+      className={`draggable-number-input ${className} ${
+        isDragging ? "dragging" : ""
+      }`}
       style={{
-        cursor: isDragging ? "ew-resize" : "ew-resize",
+        cursor: "ew-resize",
         userSelect: "none",
       }}
       {...props}
