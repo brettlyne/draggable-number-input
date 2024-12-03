@@ -11,7 +11,7 @@
   --zinc-800: #27272a;
   --zinc-900: #18181b;
   --zinc-950: #09090b;
-  --green: #567B00;
+  --green: #567b00;
 }
 
 :root {
@@ -43,7 +43,8 @@
   margin: 0;
 }
 
-body {}
+body {
+}
 
 img,
 picture,
@@ -112,6 +113,7 @@ h2 {
   font-optical-sizing: auto;
   font-style: normal;
   color: var(--zinc-700);
+  font-weight: 600;
 }
 
 h1 {
