@@ -13,7 +13,7 @@ function App() {
     <>
       <Sidebar />
       <div className="content large">
-        <h1>Draggable Number Input</h1>
+        <h1>Draggable Number Input 🚧🚧🚧</h1>
         <p>
           A <a href="https://react.dev">React</a> and{" "}
           <a href="https://svelte.dev">Svelte</a> component intended to
@@ -149,7 +149,9 @@ function App() {
 `}
         />
 
-        <h3 id="input-examples">OnDragStart and OnDragEnd events</h3>
+        <h3 id="input-examples">
+          OnDragStart and OnDragEnd events (see console)
+        </h3>
         <div className="example">
           <label>
             Barrels of fish:&nbsp;
