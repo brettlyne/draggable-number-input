@@ -24,6 +24,7 @@ export function DraggableNumberInput({
   ...props
 }: DraggableNumberInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startValue, setStartValue] = useState(0);
@@ -64,8 +65,7 @@ export function DraggableNumberInput({
     (e: React.MouseEvent) => {
       if (!inputRef.current) return;
 
-      onDragStart();
-      setIsDragging(true);
+      setIsMouseDown(true);
       setStartX(e.clientX);
       setStartValue(value);
       setTotalMovement(0);
@@ -79,7 +79,7 @@ export function DraggableNumberInput({
   );
 
   const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging) return;
+    if (!isMouseDown) return;
 
     if (!disablePointerLock && document.pointerLockElement) {
       setCursorPosition((prev) => {
@@ -94,13 +94,17 @@ export function DraggableNumberInput({
     const newMovement = disablePointerLock
       ? e.clientX - startX
       : totalMovement + e.movementX;
+    if (!isDragging && newMovement !== 0) {
+      setIsDragging(true);
+      onDragStart();
+    }
     setTotalMovement(newMovement);
 
     applyMovement(newMovement, e);
   };
 
   const updateDelta = (e: React.KeyboardEvent) => {
-    if (!isDragging) return;
+    if (!isMouseDown) return;
     applyMovement(totalMovement, e);
   };
 
@@ -130,12 +134,15 @@ export function DraggableNumberInput({
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    setIsMouseDown(false);
     setTotalMovement(0);
+    if (isDragging) {
+      setIsDragging(false);
+      onDragEnd();
+    }
     if (!disablePointerLock && document.pointerLockElement) {
       document.exitPointerLock();
     }
-    onDragEnd();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -158,7 +165,7 @@ export function DraggableNumberInput({
   };
 
   useEffect(() => {
-    if (isDragging) {
+    if (isMouseDown) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
 
@@ -167,7 +174,7 @@ export function DraggableNumberInput({
         document.removeEventListener("mouseup", handleMouseUp);
       };
     }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [isMouseDown, handleMouseMove, handleMouseUp]);
 
   return (
     <>
@@ -192,7 +199,7 @@ export function DraggableNumberInput({
         }}
         {...props}
       />
-      {isDragging && !disablePointerLock && (
+      {isMouseDown && !disablePointerLock && (
         <div
           style={{
             position: "fixed",
