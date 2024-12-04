@@ -148,6 +148,39 @@ function App() {
           svelte={`
 `}
         />
+
+        <h3 id="input-examples">OnDragStart and OnDragEnd events</h3>
+        <div className="example">
+          <label>
+            Barrels of fish:&nbsp;
+            <DraggableNumberInput
+              value={value}
+              onChange={setValue}
+              onDragStart={() => {
+                console.log("onDragStart");
+              }}
+              onDragEnd={() => {
+                console.log("onDragEnd");
+              }}
+            />
+          </label>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<label>
+  Barrels of fish:&nbsp;
+  <DraggableNumberInput
+    value={value}
+    onChange={setValue}
+    onDragStart={() => { console.log("onDragStart"); }}
+    onDragEnd={() => { console.log("onDragEnd"); }}
+  />
+</label>
+`}
+          svelte={`
+`}
+        />
       </div>
     </>
   );
