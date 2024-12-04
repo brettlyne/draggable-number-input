@@ -183,6 +183,46 @@ function App() {
           svelte={`
 `}
         />
+
+        <h3 id="input-examples">Custom styles while dragging</h3>
+        <div className="example">
+          <style>
+            {`
+            .yellow-on-drag.dragging {
+              background: yellow;
+            }
+            `}
+          </style>
+          <label>
+            Barrels of fish:&nbsp;
+            <DraggableNumberInput
+              value={value}
+              onChange={setValue}
+              className="yellow-on-drag"
+            />
+          </label>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<style>
+  .yellow-on-drag.dragging {
+    background: yellow;
+  }
+</style>
+...
+<label>
+  Barrels of fish:&nbsp;
+  <DraggableNumberInput
+    value={value}
+    onChange={setValue}
+    className="yellow-on-drag"
+  />
+</label>
+`}
+          svelte={`
+`}
+        />
       </div>
     </>
   );
