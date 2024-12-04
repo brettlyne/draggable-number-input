@@ -1,6 +1,9 @@
 export interface DraggableNumberInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   value: number;
+  onChange?: (value: number) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
   modifierKeys?: {
     default?: {
       multiplier: number;
@@ -23,6 +26,5 @@ export interface DraggableNumberInputProps
       sensitivity: number;
     };
   };
-  onChange?: (value: number) => void;
   disablePointerLock?: boolean;
 }

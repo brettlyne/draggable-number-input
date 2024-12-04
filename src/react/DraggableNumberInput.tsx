@@ -19,6 +19,8 @@ export function DraggableNumberInput({
   className = "",
   disablePointerLock = false,
   modifierKeys,
+  onDragStart = () => {},
+  onDragEnd = () => {},
   ...props
 }: DraggableNumberInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,6 +64,7 @@ export function DraggableNumberInput({
     (e: React.MouseEvent) => {
       if (!inputRef.current) return;
 
+      onDragStart();
       setIsDragging(true);
       setStartX(e.clientX);
       setStartValue(value);
@@ -72,7 +75,7 @@ export function DraggableNumberInput({
         inputRef.current.requestPointerLock();
       }
     },
-    [value, disablePointerLock]
+    [value, disablePointerLock, onDragStart]
   );
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -133,6 +136,7 @@ export function DraggableNumberInput({
     if (!disablePointerLock && document.pointerLockElement) {
       document.exitPointerLock();
     }
+    onDragEnd();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -185,6 +189,7 @@ export function DraggableNumberInput({
         style={{
           cursor: "ew-resize",
           userSelect: "none",
+          caretColor: isDragging ? "transparent" : "initial",
         }}
         {...props}
       />
@@ -216,7 +221,7 @@ export function DraggableNumberInput({
             <path
               fill="#000"
               stroke="#fff"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
               d="M6.5 9a.5.5 0 0 0-.8-.4l-4 3a.5.5 0 0 0 0 .8l4 3a.5.5 0 0 0 .8-.4v-1.5h11V15a.5.5 0 0 0 .8.4l4-3a.5.5 0 0 0 0-.8l-4-3a.5.5 0 0 0-.8.4v1.5h-11V9Z"
               style={{
                 filter: "drop-shadow( 0px 2px 1px rgba(0, 0, 0, .35))",

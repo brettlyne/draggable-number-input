@@ -36,27 +36,92 @@ function App() {
           </li>
         </ul>
 
-        <h2 id="draggable-number-input">Draggable Number Input</h2>
-        <h3 id="input-examples">Examples: Default, Disable Pointer Lock</h3>
+        <h2 id="draggable-number-input">Draggable Number Input Examples</h2>
+
+        <h3 id="input-examples">Default behavior</h3>
         <div className="example">
           <label>
             Barrels of fish:&nbsp;
             <DraggableNumberInput value={value} onChange={setValue} />
           </label>
-          <br />
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<label>
+  Barrels of fish:&nbsp;
+  <DraggableNumberInput value={value} onChange={setValue} />
+</label>
+`}
+          svelte={`
+`}
+        />
+
+        {/* <br />
           <br />
           <label>
             No pointer lock:&nbsp;
+
+          </label>
+          <br />
+          <br />
+          <label>
+            Custom Modifier Keys:&nbsp;
+            <DraggableNumberInput
+              value={value}
+              onChange={setValue}
+              modifierKeys={{
+                default: {
+                  multiplier: 2,
+                  sensitivity: 0.5,
+                },
+                ctrlKey: {
+                  multiplier: 0.1,
+                  sensitivity: 0.5,
+                },
+                altKey: {
+                  multiplier: 0.01,
+                  sensitivity: 0.2,
+                },
+                shiftKey: {
+                  multiplier: 10,
+                  sensitivity: 0.25,
+                },
+                metaKey: {
+                  multiplier: 100,
+                  sensitivity: 0.125,
+                },
+              }}
+            />
+          </label> */}
+
+        <h3 id="input-examples">No pointer lock</h3>
+        <div className="example">
+          <label>
+            Barrels of fish:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
               disablePointerLock
             />
           </label>
-          <br />
-          <br />
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<label>
+  Barrels of fish:&nbsp;
+  <DraggableNumberInput value={value} onChange={setValue} disablePointerLock  />
+</label>
+`}
+          svelte={`
+`}
+        />
+
+        <h3 id="input-examples">Custom Modifier Keys</h3>
+        <div className="example">
           <label>
-            Custom Modifier Keys:&nbsp;
+            Barrels of fish:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -90,25 +155,36 @@ function App() {
           react={`
 <label>
   Barrels of fish:&nbsp;
-  <DraggableNumberInput value={value} onChange={setValue} />
-</label>
-
-<label>
-  No pointer lock:&nbsp;
   <DraggableNumberInput
     value={value}
     onChange={setValue}
-    disablePointerLock
+    modifierKeys={{
+      default: {
+        multiplier: 2,
+        sensitivity: 0.5,
+      },
+      ctrlKey: {
+        multiplier: 0.1,
+        sensitivity: 0.5,
+      },
+      altKey: {
+        multiplier: 0.01,
+        sensitivity: 0.2,
+      },
+      shiftKey: {
+        multiplier: 10,
+        sensitivity: 0.25,
+      },
+      metaKey: {
+        multiplier: 100,
+        sensitivity: 0.125,
+      },
+    }}
   />
-</label>`}
+</label>
+`}
           svelte={`
-float random(in vec2 p) {
-float rotation = 360.0; //best 360.0
-  float size = 1.0; //best 1.0 {
-      float offsetIntensity = 5.0; //best 5.0
-  }
-return fract(sin(dot(p.xy, vec2(12.9898,78.233))) * 43758.5453123); 
-}`}
+`}
         />
       </div>
     </>
