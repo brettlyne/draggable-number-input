@@ -99,7 +99,6 @@ export function DraggableNumberInput({
     applyMovement(newMovement, e);
   };
 
-  // update value when shift key is pressed / released
   const updateDelta = (e: React.KeyboardEvent) => {
     if (!isDragging) return;
     applyMovement(totalMovement, e);

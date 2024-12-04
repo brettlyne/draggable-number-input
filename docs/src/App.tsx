@@ -57,44 +57,6 @@ function App() {
 `}
         />
 
-        {/* <br />
-          <br />
-          <label>
-            No pointer lock:&nbsp;
-
-          </label>
-          <br />
-          <br />
-          <label>
-            Custom Modifier Keys:&nbsp;
-            <DraggableNumberInput
-              value={value}
-              onChange={setValue}
-              modifierKeys={{
-                default: {
-                  multiplier: 2,
-                  sensitivity: 0.5,
-                },
-                ctrlKey: {
-                  multiplier: 0.1,
-                  sensitivity: 0.5,
-                },
-                altKey: {
-                  multiplier: 0.01,
-                  sensitivity: 0.2,
-                },
-                shiftKey: {
-                  multiplier: 10,
-                  sensitivity: 0.25,
-                },
-                metaKey: {
-                  multiplier: 100,
-                  sensitivity: 0.125,
-                },
-              }}
-            />
-          </label> */}
-
         <h3 id="input-examples">No pointer lock</h3>
         <div className="example">
           <label>
