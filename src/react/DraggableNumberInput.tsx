@@ -28,16 +28,22 @@ export function DraggableNumberInput({
   const [totalMovement, setTotalMovement] = useState(0);
   const [localValue, setLocalValue] = useState(String(value));
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const currentMultiplier = useRef(1);
+
+  const getDecimalPlaces = (multiplier: number) => {
+    if (multiplier >= 1) return 0;
+    return Math.abs(Math.floor(Math.log10(multiplier)));
+  };
 
   useEffect(() => {
-    // format displayed value to avoid issues with floating point decimal calculation:
-    // ie: .1 + .2 = .30000000000000004
+    const decimals = getDecimalPlaces(currentMultiplier.current);
     const formatted = new Intl.NumberFormat("en-US", {
-      maximumFractionDigits: 6,
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: Math.max(6, decimals),
       useGrouping: false,
     }).format(value);
     setLocalValue(String(formatted));
-  }, [value]);
+  }, [value, currentMultiplier]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -101,10 +107,11 @@ export function DraggableNumberInput({
 
     for (const key in mods) {
       if (key !== "default" && e[key as keyof typeof e]) {
+        currentMultiplier.current = mods[key as keyof typeof mods].multiplier;
         return mods[key as keyof typeof mods];
       }
     }
-
+    currentMultiplier.current = mods.default.multiplier;
     return mods.default;
   };
 
@@ -115,11 +122,8 @@ export function DraggableNumberInput({
     const { sensitivity, multiplier } = getModifiers(e);
     const delta = newMovement * sensitivity * multiplier;
     let newValue = startValue + delta;
-    if (newMovement > 0) {
-      newValue = Math.ceil(newValue / multiplier) * multiplier;
-    } else {
-      newValue = Math.floor(newValue / multiplier) * multiplier;
-    }
+    newValue = Math.round(newValue / multiplier) * multiplier;
+    newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
     onChange(newValue);
   };
 
@@ -183,7 +187,6 @@ export function DraggableNumberInput({
           userSelect: "none",
         }}
         {...props}
-        // />
       />
       {isDragging && !disablePointerLock && (
         <div

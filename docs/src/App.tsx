@@ -67,7 +67,11 @@ function App() {
                 },
                 ctrlKey: {
                   multiplier: 0.1,
-                  sensitivity: 1,
+                  sensitivity: 0.5,
+                },
+                altKey: {
+                  multiplier: 0.01,
+                  sensitivity: 0.2,
                 },
                 shiftKey: {
                   multiplier: 10,
