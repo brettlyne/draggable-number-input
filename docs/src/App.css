@@ -11,9 +11,13 @@ h1 {
   grid-template-columns: 40px fit-content(250px) 80px 720px 1fr;
 }
 
-ul.sidebar {
+.sidebar-container {
   grid-column: 2;
   margin-top: 84px;
+}
+ul.sidebar {
+  position: sticky;
+  top: 40px;
   list-style-type: none;
   padding: 0;
 
@@ -30,7 +34,6 @@ ul.sidebar {
       margin-top: 0px;
       list-style-type: circle;
     }
-
   }
 
   a {
@@ -42,11 +45,11 @@ ul.sidebar {
       border-bottom: 1px solid var(--green);
     }
   }
-
 }
 
 .content {
   padding-top: 80px;
+  padding-bottom: 200px;
   grid-column: 4;
 }
 
@@ -74,6 +77,6 @@ ul.sidebar {
   }
 
   button.active {
-    border-bottom: 4px solid var(--zinc-300)
+    border-bottom: 4px solid var(--zinc-300);
   }
 }

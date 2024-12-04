@@ -1,11 +1,24 @@
 import type { DraggableNumberInputProps } from "./draggable-number-input.types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+const defaultModifier = { multiplier: 1, sensitivity: 1 };
+const defaultModifiers = {
+  default: defaultModifier,
+  ctrlKey: defaultModifier,
+  shiftKey: {
+    multiplier: 10,
+    sensitivity: 0.5,
+  },
+  metaKey: defaultModifier,
+  altKey: defaultModifier,
+};
+
 export function DraggableNumberInput({
   value,
   onChange = () => {},
   className = "",
   disablePointerLock = false,
+  modifierKeys,
   ...props
 }: DraggableNumberInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -83,12 +96,23 @@ export function DraggableNumberInput({
     applyMovement(totalMovement, e);
   };
 
+  const getModifiers = (e: React.KeyboardEvent | MouseEvent) => {
+    const mods = { ...defaultModifiers, ...modifierKeys };
+
+    for (const key in mods) {
+      if (key !== "default" && e[key as keyof typeof e]) {
+        return mods[key as keyof typeof mods];
+      }
+    }
+
+    return mods.default;
+  };
+
   const applyMovement = (
     newMovement: number,
     e: React.KeyboardEvent | MouseEvent
   ) => {
-    const multiplier = e.shiftKey ? 10 : 1;
-    const sensitivity = e.shiftKey ? 0.5 : 1;
+    const { sensitivity, multiplier } = getModifiers(e);
     const delta = newMovement * sensitivity * multiplier;
     let newValue = startValue + delta;
     if (newMovement > 0) {
@@ -116,7 +140,12 @@ export function DraggableNumberInput({
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       onChange(value - increment);
-    } else if (e.key === "Shift") {
+    } else if (
+      e.key === "Shift" ||
+      e.key === "Control" ||
+      e.key === "Meta" ||
+      e.key === "Alt"
+    ) {
       updateDelta(e);
     }
   };
