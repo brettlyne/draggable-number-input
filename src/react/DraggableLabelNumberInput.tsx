@@ -1,4 +1,4 @@
-import type { DraggableNumberInputProps } from "./draggable-number-input.types";
+import { DraggableLabelNumberInputProps } from "./draggable-label-number-input.types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   defaultModifiers,
@@ -6,15 +6,6 @@ import {
   getDecimalPlaces,
 } from "./defaults-and-utils";
 import { DragCursor } from "./DragCursor";
-
-interface DraggableLabelNumberInputProps
-  extends Omit<DraggableNumberInputProps, "className"> {
-  children: React.ReactNode;
-  className?: string;
-  labelClassName?: string;
-  inputClassName?: string;
-  inputStyle?: React.CSSProperties;
-}
 
 export function DraggableLabelNumberInput({
   value,
