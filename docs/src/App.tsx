@@ -317,7 +317,10 @@ function App() {
         </div>
 
         <h1>Draggable Number Label</h1>
-        <p>Drag the label instead of the input.</p>
+        <p>
+          Drag the label instead of the input. We can still use up/down arrow
+          keys in the input with modifier keys.
+        </p>
 
         <h2 id="draggable-number-input">Draggable Number Label Examples</h2>
 
