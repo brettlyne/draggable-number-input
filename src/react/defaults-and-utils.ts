@@ -18,6 +18,7 @@ export const getDecimalPlaces = (multiplier: number): number => {
 export const formatNumber = (value: number, decimals: number): string => {
   return new Intl.NumberFormat("en-US", {
     minimumFractionDigits: decimals,
+    // avoid .1 + .2 = .30000000000000004 floating point "error"
     maximumFractionDigits: Math.max(6, decimals),
     useGrouping: false,
   }).format(value);
