@@ -21,7 +21,6 @@ export function DraggableLabelNumberInput({
   onChange = () => {},
   children,
   className = "",
-  labelClassName = "",
   inputClassName = "",
   inputStyle,
   disablePointerLock = false,
@@ -35,7 +34,8 @@ export function DraggableLabelNumberInput({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startValue, setStartValue] = useState(0);
-  const [totalMovement, setTotalMovement] = useState(0);
+  const totalMovement = useRef(0);
+
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const currentMultiplier = useRef(1);
   const [localValue, setLocalValue] = useState(String(value));
@@ -58,16 +58,6 @@ export function DraggableLabelNumberInput({
     setLocalValue(String(value));
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      onChange(value + increment);
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
-      onChange(value - increment);
-    }
-  };
-
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
       // Prevent drag initiation if clicking on the input itself
@@ -76,7 +66,7 @@ export function DraggableLabelNumberInput({
       setIsMouseDown(true);
       setStartX(e.clientX);
       setStartValue(value);
-      setTotalMovement(0);
+      totalMovement.current = 0;
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
       if (!disablePointerLock) {
@@ -86,35 +76,13 @@ export function DraggableLabelNumberInput({
     [value, disablePointerLock]
   );
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isMouseDown) return;
-
-    if (!disablePointerLock && document.pointerLockElement) {
-      setCursorPosition((prev) => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const x = (prev.x + e.movementX + width) % width;
-        const y = (prev.y + e.movementY + height) % height;
-        return { x, y };
-      });
-    }
-
-    const newMovement = disablePointerLock
-      ? e.clientX - startX
-      : totalMovement + e.movementX;
-    if (!isDragging && newMovement !== 0) {
-      setIsDragging(true);
-      onDragStart();
-    }
-    setTotalMovement(newMovement);
-
-    applyMovement(newMovement, e);
-  };
-  //  ⬇️
-  const updateDelta = (e: React.KeyboardEvent) => {
-    if (!isMouseDown) return;
-    applyMovement(totalMovement, e);
-  };
+  const updateDelta = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isMouseDown) return;
+      applyMovement(totalMovement.current, e);
+    },
+    [isMouseDown]
+  );
 
   const getModifiers = (e: React.KeyboardEvent | MouseEvent) => {
     const mods = { ...defaultModifiers, ...modifierKeys };
@@ -131,7 +99,7 @@ export function DraggableLabelNumberInput({
 
   const applyMovement = (
     newMovement: number,
-    e: React.KeyboardEvent | MouseEvent
+    e: KeyboardEvent | MouseEvent
   ) => {
     const { sensitivity, multiplier } = getModifiers(e);
     const delta = newMovement * sensitivity * multiplier;
@@ -141,17 +109,84 @@ export function DraggableLabelNumberInput({
     onChange(newValue);
   };
 
-  const handleMouseUp = () => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { multiplier } = getModifiers(event);
+    const increment = multiplier;
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      onChange(value + increment);
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      onChange(value - increment);
+    }
+  };
+
+  const handleModifierKeyDuringDrag = useCallback(
+    (e: KeyboardEvent) => {
+      if (
+        e.key === "Shift" ||
+        e.key === "Control" ||
+        e.key === "Meta" ||
+        e.key === "Alt"
+      ) {
+        updateDelta(e);
+      }
+    },
+    [updateDelta]
+  );
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isMouseDown) return;
+
+      if (!disablePointerLock && document.pointerLockElement) {
+        setCursorPosition((prev) => {
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          const x = (prev.x + e.movementX + width) % width;
+          const y = (prev.y + e.movementY + height) % height;
+          return { x, y };
+        });
+      }
+
+      const newMovement = disablePointerLock
+        ? e.clientX - startX
+        : totalMovement.current + e.movementX;
+      if (!isDragging && newMovement !== 0) {
+        setIsDragging(true);
+        document.addEventListener("keydown", handleModifierKeyDuringDrag);
+        document.addEventListener("keyup", handleModifierKeyDuringDrag);
+        onDragStart();
+      }
+      totalMovement.current = newMovement;
+
+      applyMovement(newMovement, e);
+    },
+    [
+      isMouseDown,
+      disablePointerLock,
+      startX,
+      isDragging,
+      handleModifierKeyDuringDrag,
+      onDragStart,
+      applyMovement,
+    ]
+  );
+
+  const handleMouseUp = useCallback(() => {
     setIsMouseDown(false);
-    setTotalMovement(0);
+    totalMovement.current = 0;
     if (isDragging) {
       setIsDragging(false);
+      document.removeEventListener("keydown", handleModifierKeyDuringDrag);
+      document.removeEventListener("keyup", handleModifierKeyDuringDrag);
       onDragEnd();
     }
     if (!disablePointerLock && document.pointerLockElement) {
       document.exitPointerLock();
     }
-  };
+  }, [isDragging, handleModifierKeyDuringDrag, onDragEnd, disablePointerLock]);
 
   useEffect(() => {
     if (isMouseDown) {
@@ -164,12 +199,12 @@ export function DraggableLabelNumberInput({
       };
     }
   }, [isMouseDown, handleMouseMove, handleMouseUp]);
-  //  ⬆️
+
   return (
     <label
       ref={labelRef}
       onMouseDown={handleMouseDown}
-      className={`draggable-number-label ${labelClassName} ${
+      className={`draggable-number-label ${className} ${
         isDragging ? "dragging" : ""
       }`}
       style={{

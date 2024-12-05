@@ -326,11 +326,7 @@ function App() {
 
         <h3 id="draggable-label">Default behavior</h3>
         <div className="example">
-          <DraggableLabelNumberInput
-            value={value}
-            onChange={setValue}
-            labelClassName="label-example"
-          >
+          <DraggableLabelNumberInput value={value} onChange={setValue}>
             Lucky number:
           </DraggableLabelNumberInput>
         </div>
@@ -340,7 +336,6 @@ function App() {
 <DraggableLabelNumberInput
   value={value}
   onChange={setValue}
-  labelClassName="label-example"
 >
   Lucky number:
 </DraggableLabelNumberInput>
