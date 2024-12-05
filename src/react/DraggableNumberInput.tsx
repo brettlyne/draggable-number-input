@@ -1,5 +1,5 @@
 import type { DraggableNumberInputProps } from "./draggable-number-input.types";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   defaultModifiers,
   formatNumber,
@@ -7,24 +7,26 @@ import {
 } from "./defaults-and-utils";
 import { DragCursor } from "./DragCursor";
 
+const noop = () => {};
+
 export function DraggableNumberInput({
   value,
-  onChange = () => {},
   className = "",
   disablePointerLock = false,
   modifierKeys,
-  onDragStart = () => {},
-  onDragEnd = () => {},
+  onChange = noop,
+  onDragStart = noop,
+  onDragEnd = noop,
   ...props
 }: DraggableNumberInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startValue, setStartValue] = useState(0);
   const [localValue, setLocalValue] = useState(String(value));
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const totalMovement = useRef(0);
+  const startValue = useRef(0);
+  const startX = useRef(0);
   const currentMultiplier = useRef(1);
 
   useEffect(() => {
@@ -50,13 +52,13 @@ export function DraggableNumberInput({
       if (!inputRef.current) return;
 
       setIsMouseDown(true);
-      setStartX(e.clientX);
-      setStartValue(value);
+      startX.current = e.clientX;
+      startValue.current = value;
       totalMovement.current = 0;
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
       if (!disablePointerLock) {
-        inputRef.current.requestPointerLock();
+        inputRef.current?.requestPointerLock();
       }
     },
     [value, disablePointerLock]
@@ -70,7 +72,9 @@ export function DraggableNumberInput({
     [isMouseDown]
   );
 
-  const getModifiers = (e: React.KeyboardEvent | MouseEvent) => {
+  const getModifiers = (
+    e: React.KeyboardEvent | KeyboardEvent | MouseEvent
+  ) => {
     const mods = { ...defaultModifiers, ...modifierKeys };
 
     for (const key in mods) {
@@ -83,17 +87,17 @@ export function DraggableNumberInput({
     return mods.default;
   };
 
-  const applyMovement = (
-    newMovement: number,
-    e: React.KeyboardEvent | MouseEvent
-  ) => {
-    const { sensitivity, multiplier } = getModifiers(e);
-    const delta = newMovement * sensitivity * multiplier;
-    let newValue = startValue + delta;
-    newValue = Math.round(newValue / multiplier) * multiplier;
-    newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
-    onChange(newValue);
-  };
+  const applyMovement = useCallback(
+    (newMovement: number, e: React.KeyboardEvent | MouseEvent) => {
+      const { sensitivity, multiplier } = getModifiers(e);
+      const delta = newMovement * sensitivity * multiplier;
+      let newValue = startValue.current + delta;
+      newValue = Math.round(newValue / multiplier) * multiplier;
+      newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
+      onChange(newValue);
+    },
+    [onChange, getModifiers]
+  );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(e);
@@ -130,7 +134,7 @@ export function DraggableNumberInput({
       }
 
       const newMovement = disablePointerLock
-        ? e.clientX - startX
+        ? e.clientX - startX.current
         : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
         setIsDragging(true);

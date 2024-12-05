@@ -1,5 +1,5 @@
 import { DraggableLabelNumberInputProps } from "./draggable-label-number-input.types";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   defaultModifiers,
   formatNumber,
@@ -78,7 +78,7 @@ export function DraggableLabelNumberInput({
   );
 
   const getModifiers = useCallback(
-    (e: React.KeyboardEvent | MouseEvent) => {
+    (e: React.KeyboardEvent | KeyboardEvent | MouseEvent) => {
       const mods = { ...defaultModifiers, ...modifierKeys };
 
       for (const key in mods) {
