@@ -7,6 +7,9 @@ export interface DraggableLabelNumberInputProps
   onChange?: (value: number) => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
+  children?: React.ReactNode;
+  disablePointerLock?: boolean;
+  noInput?: boolean;
   modifierKeys?: {
     default?: {
       multiplier: number;
@@ -29,5 +32,4 @@ export interface DraggableLabelNumberInputProps
       sensitivity: number;
     };
   };
-  disablePointerLock?: boolean;
 }

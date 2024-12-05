@@ -7,29 +7,31 @@ import {
 } from "./defaults-and-utils";
 import { DragCursor } from "./DragCursor";
 
+const noop = () => {};
+
 export function DraggableLabelNumberInput({
   value,
-  onChange = () => {},
-  children,
   className = "",
   inputClassName = "",
   inputStyle,
+  children,
+  noInput = false,
   disablePointerLock = false,
   modifierKeys,
-  onDragStart = () => {},
-  onDragEnd = () => {},
+  onChange = noop,
+  onDragStart = noop,
+  onDragEnd = noop,
   ...props
 }: DraggableLabelNumberInputProps) {
   const labelRef = useRef<HTMLLabelElement>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startValue, setStartValue] = useState(0);
-  const totalMovement = useRef(0);
-
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const currentMultiplier = useRef(1);
   const [localValue, setLocalValue] = useState(String(value));
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const totalMovement = useRef(0);
+  const startValue = useRef(0);
+  const startX = useRef(0);
+  const currentMultiplier = useRef(1);
 
   useEffect(() => {
     const decimals = getDecimalPlaces(currentMultiplier.current);
@@ -55,8 +57,8 @@ export function DraggableLabelNumberInput({
       if ((e.target as HTMLElement).tagName === "INPUT") return;
 
       setIsMouseDown(true);
-      setStartX(e.clientX);
-      setStartValue(value);
+      startX.current = e.clientX;
+      startValue.current = value;
       totalMovement.current = 0;
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
@@ -75,32 +77,35 @@ export function DraggableLabelNumberInput({
     [isMouseDown]
   );
 
-  const getModifiers = (e: React.KeyboardEvent | MouseEvent) => {
-    const mods = { ...defaultModifiers, ...modifierKeys };
+  const getModifiers = useCallback(
+    (e: React.KeyboardEvent | MouseEvent) => {
+      const mods = { ...defaultModifiers, ...modifierKeys };
 
-    for (const key in mods) {
-      if (key !== "default" && e[key as keyof typeof e]) {
-        currentMultiplier.current = mods[key as keyof typeof mods].multiplier;
-        return mods[key as keyof typeof mods];
+      for (const key in mods) {
+        if (key !== "default" && e[key as keyof typeof e]) {
+          currentMultiplier.current = mods[key as keyof typeof mods].multiplier;
+          return mods[key as keyof typeof mods];
+        }
       }
-    }
-    currentMultiplier.current = mods.default.multiplier;
-    return mods.default;
-  };
+      currentMultiplier.current = mods.default.multiplier;
+      return mods.default;
+    },
+    [modifierKeys]
+  );
 
-  const applyMovement = (
-    newMovement: number,
-    e: KeyboardEvent | MouseEvent
-  ) => {
-    const { sensitivity, multiplier } = getModifiers(e);
-    const delta = newMovement * sensitivity * multiplier;
-    let newValue = startValue + delta;
-    newValue = Math.round(newValue / multiplier) * multiplier;
-    newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
-    onChange(newValue);
-  };
+  const applyMovement = useCallback(
+    (newMovement: number, e: KeyboardEvent | MouseEvent) => {
+      const { sensitivity, multiplier } = getModifiers(e);
+      const delta = newMovement * sensitivity * multiplier;
+      let newValue = startValue.current + delta;
+      newValue = Math.round(newValue / multiplier) * multiplier;
+      newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
+      onChange(newValue);
+    },
+    [onChange, getModifiers]
+  );
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(event);
     const increment = multiplier;
 
@@ -142,7 +147,7 @@ export function DraggableLabelNumberInput({
       }
 
       const newMovement = disablePointerLock
-        ? e.clientX - startX
+        ? e.clientX - startX.current
         : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
         setIsDragging(true);
@@ -157,7 +162,6 @@ export function DraggableLabelNumberInput({
     [
       isMouseDown,
       disablePointerLock,
-      startX,
       isDragging,
       handleModifierKeyDuringDrag,
       onDragStart,
@@ -205,17 +209,19 @@ export function DraggableLabelNumberInput({
       {...props}
     >
       {children}
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="-?[0-9]*\.?[0-9]*"
-        value={localValue}
-        onChange={handleInputChange}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        className={inputClassName}
-        style={inputStyle}
-      />
+      {!noInput && (
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="-?[0-9]*\.?[0-9]*"
+          value={localValue}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+          className={inputClassName}
+          style={inputStyle}
+        />
+      )}
       {isMouseDown && !disablePointerLock && (
         <DragCursor cursorPosition={cursorPosition} />
       )}
