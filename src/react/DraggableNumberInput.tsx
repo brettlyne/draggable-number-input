@@ -72,20 +72,21 @@ export function DraggableNumberInput({
     [isMouseDown]
   );
 
-  const getModifiers = (
-    e: React.KeyboardEvent | KeyboardEvent | MouseEvent
-  ) => {
-    const mods = { ...defaultModifiers, ...modifierKeys };
+  const getModifiers = useCallback(
+    (e: React.KeyboardEvent | KeyboardEvent | MouseEvent) => {
+      const mods = { ...defaultModifiers, ...modifierKeys };
 
-    for (const key in mods) {
-      if (key !== "default" && e[key as keyof typeof e]) {
-        currentMultiplier.current = mods[key as keyof typeof mods].multiplier;
-        return mods[key as keyof typeof mods];
+      for (const key in mods) {
+        if (key !== "default" && e[key as keyof typeof e]) {
+          currentMultiplier.current = mods[key as keyof typeof mods].multiplier;
+          return mods[key as keyof typeof mods];
+        }
       }
-    }
-    currentMultiplier.current = mods.default.multiplier;
-    return mods.default;
-  };
+      currentMultiplier.current = mods.default.multiplier;
+      return mods.default;
+    },
+    [modifierKeys]
+  );
 
   const applyMovement = useCallback(
     (newMovement: number, e: React.KeyboardEvent | MouseEvent) => {
