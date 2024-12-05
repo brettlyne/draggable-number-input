@@ -3,6 +3,7 @@ p {
 }
 
 h1 {
+  margin-top: 80px;
   margin-bottom: 40px;
 }
 
@@ -48,7 +49,6 @@ ul.sidebar {
 }
 
 .content {
-  padding-top: 80px;
   padding-bottom: 200px;
   grid-column: 4;
 }
@@ -56,6 +56,9 @@ ul.sidebar {
 .example {
   padding: 20px 36px;
   background-color: var(--zinc-100);
+  input {
+    margin-left: 8px;
+  }
 }
 
 .code-preview {

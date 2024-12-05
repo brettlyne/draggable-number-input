@@ -22,8 +22,8 @@ const Sidebar = () => {
           </ul>
         </li>
         <li>
-          <a href="#draggable-number-input-label">
-            <strong>Draggable Number Input Label</strong>
+          <a href="#draggable-number-label">
+            <strong>Draggable Number Label</strong>
           </a>
           <ul>
             <li>

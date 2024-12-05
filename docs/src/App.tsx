@@ -3,6 +3,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import CodePreview from "./components/CodePreview";
 import { DraggableNumberInput } from "../../src/react/DraggableNumberInput";
+import { DraggableNumberLabel } from "../../src/react/DraggableNumberLabel";
 
 function App() {
   const [codeMode, setCodeMode] = useState<"react" | "svelte">("react");
@@ -41,7 +42,7 @@ function App() {
         <h3 id="input-examples">Default behavior</h3>
         <div className="example">
           <label>
-            Lucky number:&nbsp;
+            Lucky number:
             <DraggableNumberInput value={value} onChange={setValue} />
           </label>
         </div>
@@ -49,7 +50,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Lucky number:&nbsp;
+  Lucky number:
   <DraggableNumberInput value={value} onChange={setValue} />
 </label>
 `}
@@ -60,7 +61,7 @@ function App() {
         <h3 id="input-examples">No pointer lock</h3>
         <div className="example">
           <label>
-            Lucky number:&nbsp;
+            Lucky number:
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -72,7 +73,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Lucky number:&nbsp;
+  Lucky number:
   <DraggableNumberInput value={value} onChange={setValue} disablePointerLock  />
 </label>
 `}
@@ -83,7 +84,7 @@ function App() {
         <h3 id="input-examples">Custom Modifier Keys</h3>
         <div className="example">
           <label>
-            Lucky number:&nbsp;
+            Lucky number:
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -116,7 +117,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Lucky number:&nbsp;
+  Lucky number:
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -154,7 +155,7 @@ function App() {
         </h3>
         <div className="example">
           <label>
-            Lucky number:&nbsp;
+            Lucky number:
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -171,7 +172,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Lucky number:&nbsp;
+  Lucky number:
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -194,7 +195,7 @@ function App() {
             `}
           </style>
           <label>
-            Lucky number:&nbsp;
+            Lucky number:
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -212,7 +213,7 @@ function App() {
 </style>
 ...
 <label>
-  Lucky number:&nbsp;
+  Lucky number:
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -314,6 +315,48 @@ function App() {
             </tbody>
           </table>
         </div>
+
+        <h1>Draggable Number Label</h1>
+        <p>Drag the label instead of the input.</p>
+
+        <h2 id="draggable-number-input">Draggable Number Label Examples</h2>
+
+        <h3 id="draggable-label">Default behavior</h3>
+        <div className="example">
+          <DraggableNumberLabel
+            value={value}
+            onChange={setValue}
+            labelClassName="label-example"
+          >
+            Lucky number:
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(Number(e.target.value))}
+              style={{ width: 60 }}
+            />
+          </DraggableNumberLabel>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableNumberLabel
+  value={value}
+  onChange={setValue}
+  labelClassName="label-example"
+>
+  Lucky number:
+  <input
+    type="text"
+    value={value}
+    onChange={(e) => setValue(Number(e.target.value))}
+    style={{ width: 60 }}
+  />
+</DraggableNumberLabel>
+`}
+          svelte={`
+`}
+        />
       </div>
     </>
   );
