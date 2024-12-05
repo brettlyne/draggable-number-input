@@ -1,17 +1,11 @@
 import type { DraggableNumberInputProps } from "./draggable-number-input.types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-
-const defaultModifier = { multiplier: 1, sensitivity: 1 };
-const defaultModifiers = {
-  default: defaultModifier,
-  ctrlKey: defaultModifier,
-  shiftKey: {
-    multiplier: 10,
-    sensitivity: 0.5,
-  },
-  metaKey: defaultModifier,
-  altKey: defaultModifier,
-};
+import {
+  defaultModifiers,
+  formatNumber,
+  getDecimalPlaces,
+} from "./defaults-and-utils";
+import { DragCursor } from "./DragCursor";
 
 export function DraggableNumberInput({
   value,
@@ -33,19 +27,9 @@ export function DraggableNumberInput({
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const currentMultiplier = useRef(1);
 
-  const getDecimalPlaces = (multiplier: number) => {
-    if (multiplier >= 1) return 0;
-    return Math.abs(Math.floor(Math.log10(multiplier)));
-  };
-
   useEffect(() => {
     const decimals = getDecimalPlaces(currentMultiplier.current);
-    const formatted = new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: Math.max(6, decimals),
-      useGrouping: false,
-    }).format(value);
-    setLocalValue(String(formatted));
+    setLocalValue(formatNumber(value, decimals));
   }, [value, currentMultiplier]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +59,7 @@ export function DraggableNumberInput({
         inputRef.current.requestPointerLock();
       }
     },
-    [value, disablePointerLock, onDragStart]
+    [value, disablePointerLock]
   );
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -200,41 +184,7 @@ export function DraggableNumberInput({
         {...props}
       />
       {isMouseDown && !disablePointerLock && (
-        <div
-          style={{
-            position: "fixed",
-            left: 0,
-            top: 0,
-            width: "100vw",
-            height: "100vh",
-            pointerEvents: "none",
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            style={{
-              position: "absolute",
-              left: cursorPosition.x,
-              top: cursorPosition.y,
-              transform: "translate(-50%, -50%)",
-              pointerEvents: "none",
-            }}
-          >
-            {/* resize-ew icon on drag  */}
-            <path
-              fill="#000"
-              stroke="#fff"
-              strokeLinejoin="round"
-              d="M6.5 9a.5.5 0 0 0-.8-.4l-4 3a.5.5 0 0 0 0 .8l4 3a.5.5 0 0 0 .8-.4v-1.5h11V15a.5.5 0 0 0 .8.4l4-3a.5.5 0 0 0 0-.8l-4-3a.5.5 0 0 0-.8.4v1.5h-11V9Z"
-              style={{
-                filter: "drop-shadow( 0px 2px 1px rgba(0, 0, 0, .35))",
-              }}
-            />
-          </svg>
-        </div>
+        <DragCursor cursorPosition={cursorPosition} />
       )}
     </>
   );
