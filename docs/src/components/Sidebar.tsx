@@ -1,4 +1,4 @@
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   return (
     <div className="sidebar-container">
       <ul className="sidebar">
