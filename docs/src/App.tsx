@@ -3,7 +3,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import CodePreview from "./components/CodePreview";
 import { DraggableNumberInput } from "../../src/react/DraggableNumberInput";
-import { DraggableNumberLabel } from "../../src/react/DraggableNumberLabel";
+import { DraggableLabelNumberInput } from "../../src/react/DraggableLabelNumberInput";
 
 function App() {
   const [codeMode, setCodeMode] = useState<"react" | "svelte">("react");
@@ -326,36 +326,24 @@ function App() {
 
         <h3 id="draggable-label">Default behavior</h3>
         <div className="example">
-          <DraggableNumberLabel
+          <DraggableLabelNumberInput
             value={value}
             onChange={setValue}
             labelClassName="label-example"
           >
             Lucky number:
-            <input
-              type="text"
-              value={value}
-              onChange={(e) => setValue(Number(e.target.value))}
-              style={{ width: 60 }}
-            />
-          </DraggableNumberLabel>
+          </DraggableLabelNumberInput>
         </div>
         <CodePreview
           mode={mode}
           react={`
-<DraggableNumberLabel
+<DraggableLabelNumberInput
   value={value}
   onChange={setValue}
   labelClassName="label-example"
 >
   Lucky number:
-  <input
-    type="text"
-    value={value}
-    onChange={(e) => setValue(Number(e.target.value))}
-    style={{ width: 60 }}
-  />
-</DraggableNumberLabel>
+</DraggableLabelNumberInput>
 `}
           svelte={`
 `}

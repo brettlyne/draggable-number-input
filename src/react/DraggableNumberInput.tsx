@@ -130,7 +130,8 @@ export function DraggableNumberInput({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    const increment = e.shiftKey ? 10 : 1;
+    const { multiplier } = getModifiers(e);
+    const increment = multiplier;
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
