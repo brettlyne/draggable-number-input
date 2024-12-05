@@ -16,10 +16,10 @@ function App() {
       <div className="content large">
         <h1>Draggable Number Input 🚧🚧🚧</h1>
         <p>
-          A <a href="https://react.dev">React</a> and{" "}
-          <a href="https://svelte.dev">Svelte</a> component intended to
-          replicate the draggable number input behavior we see in applications
-          like Blender, Figma, and After Effects.
+          A <a href="https://react.dev">React</a>{" "}
+          {/* and <a href="https://svelte.dev">Svelte</a>  */}
+          component intended to replicate the draggable number input behavior we
+          see in applications like Blender, Figma, and After Effects.
         </p>
         <p>Behaviors:</p>
 
