@@ -41,7 +41,7 @@ function App() {
         <h3 id="input-examples">Default behavior</h3>
         <div className="example">
           <label>
-            Barrels of fish:&nbsp;
+            Lucky number:&nbsp;
             <DraggableNumberInput value={value} onChange={setValue} />
           </label>
         </div>
@@ -49,7 +49,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Barrels of fish:&nbsp;
+  Lucky number:&nbsp;
   <DraggableNumberInput value={value} onChange={setValue} />
 </label>
 `}
@@ -60,7 +60,7 @@ function App() {
         <h3 id="input-examples">No pointer lock</h3>
         <div className="example">
           <label>
-            Barrels of fish:&nbsp;
+            Lucky number:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -72,7 +72,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Barrels of fish:&nbsp;
+  Lucky number:&nbsp;
   <DraggableNumberInput value={value} onChange={setValue} disablePointerLock  />
 </label>
 `}
@@ -83,7 +83,7 @@ function App() {
         <h3 id="input-examples">Custom Modifier Keys</h3>
         <div className="example">
           <label>
-            Barrels of fish:&nbsp;
+            Lucky number:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -116,7 +116,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Barrels of fish:&nbsp;
+  Lucky number:&nbsp;
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -154,7 +154,7 @@ function App() {
         </h3>
         <div className="example">
           <label>
-            Barrels of fish:&nbsp;
+            Lucky number:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -171,7 +171,7 @@ function App() {
           mode={mode}
           react={`
 <label>
-  Barrels of fish:&nbsp;
+  Lucky number:&nbsp;
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -194,7 +194,7 @@ function App() {
             `}
           </style>
           <label>
-            Barrels of fish:&nbsp;
+            Lucky number:&nbsp;
             <DraggableNumberInput
               value={value}
               onChange={setValue}
@@ -212,7 +212,7 @@ function App() {
 </style>
 ...
 <label>
-  Barrels of fish:&nbsp;
+  Lucky number:&nbsp;
   <DraggableNumberInput
     value={value}
     onChange={setValue}
@@ -223,6 +223,97 @@ function App() {
           svelte={`
 `}
         />
+
+        <div className="api-section">
+          <h2 id="input-api">Draggable Number Input API</h2>
+          <p>The DraggableNumberInput component accepts the following props:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>{`value`}</code>
+                </td>
+                <td>
+                  <code>{`number`}</code>
+                </td>
+                <td>Required</td>
+                <td>The current value of the input</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`onChange`}</code>
+                </td>
+                <td>
+                  <code>{`function`}</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when the value changes</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`onDragStart`}</code>
+                </td>
+                <td>
+                  <code>{`function`}</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when dragging begins</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`onDragEnd`}</code>
+                </td>
+                <td>
+                  <code>{`function`}</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when dragging ends</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`disablePointerLock`}</code>
+                </td>
+                <td>
+                  <code>{`boolean`}</code>
+                </td>
+                <td>
+                  <code>{`false`}</code>
+                </td>
+                <td>When true, disables pointer lock during drag</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`modifierKeys`}</code>
+                </td>
+                <td>
+                  <code>{`object`}</code>
+                </td>
+                <td>See description</td>
+                <td>
+                  Configuration for modifier key behavior. Can include{" "}
+                  <code>default</code>, <code>shiftKey</code>,{" "}
+                  <code>ctrlKey</code>, <code>altKey</code>, and{" "}
+                  <code>metaKey</code> settings, each with{" "}
+                  <code>multiplier</code> and <code>sensitivity</code> values
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

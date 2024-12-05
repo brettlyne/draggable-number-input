@@ -80,3 +80,30 @@ ul.sidebar {
     border-bottom: 4px solid var(--zinc-300);
   }
 }
+
+.api-section {
+  table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f5f5f5;
+  }
+
+  code {
+    background: var(--zinc-150);
+    line-height: 18px;
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+}

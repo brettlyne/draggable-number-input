@@ -16,6 +16,9 @@ const Sidebar = () => {
             <li>
               <a href="#input-installation">Installation</a>
             </li>
+            <li>
+              <a href="#input-api">API</a>
+            </li>
           </ul>
         </li>
         <li>
