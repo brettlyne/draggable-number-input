@@ -142,6 +142,8 @@ ul {
 
 li {
   padding-left: 8px;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
 }
 
 pre {
@@ -151,6 +153,7 @@ pre {
   padding: 16px 24px;
   font-size: 12px;
   line-height: 16px;
+  white-space: pre-wrap;
 }
 
 code {

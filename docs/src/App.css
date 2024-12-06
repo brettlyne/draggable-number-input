@@ -110,3 +110,24 @@ ul.sidebar {
     border-radius: 2px;
   }
 }
+
+@media (max-width: 64rem) {
+  .sidebar {
+    font-size: 0.875rem;
+  }
+  #root {
+    grid-template-columns: 20px fit-content(140px) 40px 1fr 20px;
+  }
+}
+
+@media (max-width: 52.5rem) {
+  .sidebar-container {
+    display: none;
+  }
+  #root {
+    grid-template-columns: 16px 1fr 16px;
+  }
+  .content {
+    grid-column: 2;
+  }
+}
