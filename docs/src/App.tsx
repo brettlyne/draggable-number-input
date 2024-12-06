@@ -362,6 +362,268 @@ function App() {
           svelte={`
 `}
         />
+
+        <h3 id="draggable-label-modifiers">With modifier keys</h3>
+        <div className="example">
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            modifierKeys={{
+              default: {
+                multiplier: 2,
+                sensitivity: 0.5,
+              },
+              ctrlKey: {
+                multiplier: 0.1,
+                sensitivity: 0.5,
+              },
+              altKey: {
+                multiplier: 0.01,
+                sensitivity: 0.2,
+              },
+              shiftKey: {
+                multiplier: 10,
+                sensitivity: 0.25,
+              },
+              metaKey: {
+                multiplier: 100,
+                sensitivity: 0.125,
+              },
+            }}
+          >
+            Lucky number:
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  modifierKeys={{
+    default: { multiplier: 2, sensitivity: 0.5 },
+    ctrlKey: { multiplier: 0.1, sensitivity: 0.5 },
+    altKey: { multiplier: 0.01, sensitivity: 0.2 },
+    shiftKey: { multiplier: 10, sensitivity: 0.25 },
+    metaKey: { multiplier: 100, sensitivity: 0.125 },
+  }}
+>
+  Lucky number:
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
+        <h3 id="draggable-label-events">
+          OnDragStart and OnDragEnd events (see console)
+        </h3>
+        <div className="example">
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            onDragStart={() => {
+              console.log("onDragStart");
+            }}
+            onDragEnd={() => {
+              console.log("onDragEnd");
+            }}
+          >
+            Lucky number:
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  onDragStart={() => { console.log("onDragStart"); }}
+  onDragEnd={() => { console.log("onDragEnd"); }}
+>
+  Lucky number:
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
+        <h3 id="draggable-label-styles">Custom styles while dragging</h3>
+        <div className="example">
+          <style>
+            {`
+            .yellow-on-drag.dragging {
+              background: yellow;
+            }
+            `}
+          </style>
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            className="yellow-on-drag"
+          >
+            Lucky number:
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<style>
+  .yellow-on-drag.dragging {
+    background: yellow;
+  }
+</style>
+...
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  className="yellow-on-drag"
+>
+  Lucky number:
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
+        <div className="api-section">
+          <h2 id="label-input-api">Draggable Label Number Input API</h2>
+          <p>
+            The DraggableLabelNumberInput component accepts the following props:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>value</code>
+                </td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>Required</td>
+                <td>The current value of the input</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>onChange</code>
+                </td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when the value changes</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>onDragStart</code>
+                </td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when dragging begins</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>onDragEnd</code>
+                </td>
+                <td>
+                  <code>function</code>
+                </td>
+                <td>
+                  <code>{`() => {}`}</code>
+                </td>
+                <td>Callback function called when dragging ends</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>disablePointerLock</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
+                <td>When true, disables pointer lock during drag</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>modifierKeys</code>
+                </td>
+                <td>
+                  <code>object</code>
+                </td>
+                <td>See description</td>
+                <td>
+                  Configuration for modifier key behavior. Can include{" "}
+                  <code>default</code>, <code>shiftKey</code>,{" "}
+                  <code>ctrlKey</code>, <code>altKey</code>, and{" "}
+                  <code>metaKey</code> settings, each with{" "}
+                  <code>multiplier</code> and <code>sensitivity</code> values
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>children</code>
+                </td>
+                <td>
+                  <code>React.ReactNode</code>
+                </td>
+                <td>Optional</td>
+                <td>The label content to be displayed</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>noInput</code>
+                </td>
+                <td>
+                  <code>boolean</code>
+                </td>
+                <td>
+                  <code>false</code>
+                </td>
+                <td>When true, hides the input field</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>inputClassName</code>
+                </td>
+                <td>
+                  <code>string</code>
+                </td>
+                <td>
+                  <code>""</code>
+                </td>
+                <td>Additional CSS class for the input element</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>inputStyle</code>
+                </td>
+                <td>
+                  <code>React.CSSProperties</code>
+                </td>
+                <td>
+                  <code>{}</code>
+                </td>
+                <td>Additional inline styles for the input element</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
