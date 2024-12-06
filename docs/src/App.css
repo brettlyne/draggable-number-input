@@ -42,8 +42,8 @@ ul.sidebar {
     border: none;
 
     &:hover {
-      color: var(--green);
-      border-bottom: 1px solid var(--green);
+      color: var(--link-color);
+      border-bottom: 1px solid var(--link-color);
     }
   }
 }
@@ -55,7 +55,7 @@ ul.sidebar {
 
 .example {
   padding: 20px 36px;
-  background-color: var(--zinc-100);
+  background-color: var(--example-background);
   input {
     margin-left: 8px;
   }
@@ -94,7 +94,7 @@ ul.sidebar {
 
   th,
   td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     padding: 8px;
     text-align: left;
   }

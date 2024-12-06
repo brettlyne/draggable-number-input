@@ -13,6 +13,29 @@
   --zinc-900: #18181b;
   --zinc-950: #09090b;
   --green: #567b00;
+  --lighter-green: #d9f95e;
+
+  --background-color: var(--zinc-50);
+  --text-color: var(--zinc-600);
+  --code-background: var(--zinc-100);
+  --border-color: var(--zinc-300);
+  --link-color: var(--zinc-500);
+  --example-background: var(--zinc-150);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: var(--zinc-900);
+    --text-color: var(--zinc-100);
+    --code-background: var(--zinc-700);
+    --border-color: var(--zinc-600);
+    --link-color: var(--lighter-green);
+    --example-background: var(--zinc-800);
+  }
+}
+
+body {
+  background-color: var(--background-color);
 }
 
 :root {
@@ -23,7 +46,7 @@
   line-height: 1.625rem;
   font-family: "IBM Plex Sans", serif;
   font-weight: 300;
-  color: var(--zinc-600);
+  color: var(--text-color);
 }
 
 .large {
@@ -94,14 +117,14 @@ strong {
 
 /* ELEMENTS */
 a {
-  color: var(--green);
-  border-bottom: 1px solid var(--green);
+  color: var(--link-color);
+  border-bottom: 1px solid var(--link-color);
   text-decoration: none;
   font-weight: inherit;
 
   &:hover {
-    color: var(--green);
-    border-bottom: 2px solid var(--green);
+    color: var(--link-color);
+    border-bottom: 2px solid var(--link-color);
   }
 }
 
@@ -147,8 +170,8 @@ li {
 }
 
 pre {
-  background: var(--zinc-100);
-  border: 1px solid var(--zinc-300);
+  background-color: var(--code-background);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 16px 24px;
   font-size: 12px;
