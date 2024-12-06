@@ -11,7 +11,7 @@ const Sidebar = () => {
           </a>
           <ul>
             <li>
-              <a href="#input-examples">Examples</a>
+              <a href="#draggable-number-input">Examples</a>
             </li>
             <li>
               <a href="#input-installation">Installation</a>
@@ -22,8 +22,8 @@ const Sidebar = () => {
           </ul>
         </li>
         <li>
-          <a href="#draggable-number-label">
-            <strong>Draggable Number Label</strong>
+          <a href="#draggable-label-number-input">
+            <strong>Draggable Label Number Input</strong>
           </a>
           <ul>
             <li>

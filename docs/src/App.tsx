@@ -14,30 +14,47 @@ function App() {
     <>
       <Sidebar />
       <div className="content large">
-        <h1>Draggable Number Input 🚧🚧🚧</h1>
+        <h1>Draggable Number Inputs</h1>
         <p>
-          A <a href="https://react.dev">React</a>{" "}
+          <a href="https://react.dev">React</a>{" "}
           {/* and <a href="https://svelte.dev">Svelte</a>  */}
-          component intended to replicate the draggable number input behavior we
-          see in applications like Blender, Figma, and After Effects.
+          components intended to replicate the draggable number input behavior
+          we see in applications like Blender, Figma, After Effects, and others.
+        </p>
+        <p>
+          Drag left or right on the{" "}
+          <a href="#draggable-number-input">
+            <strong>input</strong>
+          </a>{" "}
+          or{" "}
+          <a href="#draggable-label-number-input">
+            <strong>label</strong>
+          </a>{" "}
+          to set the value.
         </p>
         <p>Behaviors:</p>
 
         <ul>
           <li>
-            drag left or right on an input (or{" "}
-            <a href="#draggable-number-input-label">label</a>) to set the value
+            use up and down arrow keys while input is focused to increment and
+            decrement
           </li>
-          <li>use up and down arrow keys to increment and decrement</li>
-          <li>allow modifier keys to multiply the increment </li>
+          <li>
+            allow modifier keys to multiply the increment (modifier keys also
+            apply to arrow keys)
+          </li>
           <li>
             provide optional sensitivity setting per modifier key to more easily
-            target values (ex: in Figma while holding shift you move by 10 and
+            target values (ex: in Figma while holding shift you move by 10s and
             sensitivity is .5)
+          </li>
+          <li>
+            multipliers serve as a "snapping" value while dragging, ie: if
+            you're holding shift you'll move by 10 and snap to the nearest 10
           </li>
         </ul>
 
-        <h2 id="draggable-number-input">Draggable Number Input Examples</h2>
+        <h2 id="draggable-number-input">&lt;DraggableNumberInput&gt;</h2>
 
         <h3 id="input-examples">Default behavior</h3>
         <div className="example">
@@ -316,13 +333,15 @@ function App() {
           </table>
         </div>
 
-        <h1>Draggable Number Label</h1>
+        <h1>Draggable Label Number Input</h1>
         <p>
           Drag the label instead of the input. We can still use up/down arrow
           keys in the input with modifier keys.
         </p>
 
-        <h2 id="draggable-number-input">Draggable Number Label Examples</h2>
+        <h2 id="draggable-label-number-input">
+          &lt;DraggableLabelNumberInput&gt;
+        </h2>
 
         <h3 id="draggable-label">Default behavior</h3>
         <div className="example">
