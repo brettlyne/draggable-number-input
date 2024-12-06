@@ -346,7 +346,7 @@ function App() {
         <h3 id="draggable-label">Default behavior</h3>
         <div className="example">
           <DraggableLabelNumberInput value={value} onChange={setValue}>
-            Lucky number:
+            Draggable label:
           </DraggableLabelNumberInput>
         </div>
         <CodePreview
@@ -356,7 +356,7 @@ function App() {
   value={value}
   onChange={setValue}
 >
-  Lucky number:
+  Draggable label:
 </DraggableLabelNumberInput>
 `}
           svelte={`
@@ -391,7 +391,7 @@ function App() {
               },
             }}
           >
-            Lucky number:
+            Draggable label:
           </DraggableLabelNumberInput>
         </div>
         <CodePreview
@@ -408,7 +408,7 @@ function App() {
     metaKey: { multiplier: 100, sensitivity: 0.125 },
   }}
 >
-  Lucky number:
+  Draggable label:
 </DraggableLabelNumberInput>
 `}
           svelte={`
@@ -429,7 +429,7 @@ function App() {
               console.log("onDragEnd");
             }}
           >
-            Lucky number:
+            Draggable label:
           </DraggableLabelNumberInput>
         </div>
         <CodePreview
@@ -441,7 +441,7 @@ function App() {
   onDragStart={() => { console.log("onDragStart"); }}
   onDragEnd={() => { console.log("onDragEnd"); }}
 >
-  Lucky number:
+  Draggable label:
 </DraggableLabelNumberInput>
 `}
           svelte={`
@@ -462,7 +462,7 @@ function App() {
             onChange={setValue}
             className="yellow-on-drag"
           >
-            Lucky number:
+            Draggable label:
           </DraggableLabelNumberInput>
         </div>
         <CodePreview
@@ -479,7 +479,7 @@ function App() {
   onChange={setValue}
   className="yellow-on-drag"
 >
-  Lucky number:
+  Draggable label:
 </DraggableLabelNumberInput>
 `}
           svelte={`
