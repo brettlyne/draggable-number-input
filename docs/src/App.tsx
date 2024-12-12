@@ -160,26 +160,11 @@ function App() {
     value={value}
     onChange={setValue}
     modifierKeys={{
-      default: {
-        multiplier: 2,
-        sensitivity: 0.5,
-      },
-      ctrlKey: {
-        multiplier: 0.1,
-        sensitivity: 0.5,
-      },
-      altKey: {
-        multiplier: 0.01,
-        sensitivity: 0.2,
-      },
-      shiftKey: {
-        multiplier: 10,
-        sensitivity: 0.25,
-      },
-      metaKey: {
-        multiplier: 100,
-        sensitivity: 0.125,
-      },
+      default:  { multiplier: 2,    sensitivity: 0.5 },
+      ctrlKey:  { multiplier: 0.1,  sensitivity: 0.5 },
+      altKey:   { multiplier: 0.01, sensitivity: 0.2 },
+      shiftKey: { multiplier: 10,   sensitivity: 0.25 },
+      metaKey:  { multiplier: 100,  sensitivity: 0.125 },
     }}
   />
 </label>
@@ -447,11 +432,11 @@ function App() {
   value={value}
   onChange={setValue}
   modifierKeys={{
-    default: { multiplier: 2, sensitivity: 0.5 },
-    ctrlKey: { multiplier: 0.1, sensitivity: 0.5 },
-    altKey: { multiplier: 0.01, sensitivity: 0.2 },
-    shiftKey: { multiplier: 10, sensitivity: 0.25 },
-    metaKey: { multiplier: 100, sensitivity: 0.125 },
+    default:  { multiplier: 2,    sensitivity: 0.5 },
+    ctrlKey:  { multiplier: 0.1,  sensitivity: 0.5 },
+    altKey:   { multiplier: 0.01, sensitivity: 0.2 },
+    shiftKey: { multiplier: 10,   sensitivity: 0.25 },
+    metaKey:  { multiplier: 100,  sensitivity: 0.125 },
   }}
 >
   Draggable label:
