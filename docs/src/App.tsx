@@ -36,6 +36,14 @@ function App() {
 
         <ul>
           <li>
+            use{" "}
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API">
+              pointer lock API
+            </a>{" "}
+            to make it possible to drag past the edge of the screen and so your
+            cursor is back on the input when you release the mouse.
+          </li>
+          <li>
             use up and down arrow keys while input is focused to increment and
             decrement
           </li>
@@ -76,6 +84,19 @@ function App() {
         />
 
         <h3 id="input-examples">No pointer lock</h3>
+        <p>
+          By default{" "}
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API">
+            pointer lock
+          </a>{" "}
+          is enabled, and we can drag indefinitely until we reach the desired
+          number. Additional drags are also made easier since the cursor snaps
+          back to the input when you release the mouse.
+        </p>
+        <p>
+          In this <code>disablePointerLock</code> version, you can only drag to
+          the edge of the screen.
+        </p>
         <div className="example">
           <label>
             Lucky number:
