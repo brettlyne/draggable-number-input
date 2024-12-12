@@ -384,6 +384,31 @@ function App() {
 `}
         />
 
+        <h3 id="draggable-label-no-pointer-lock">Without pointer lock</h3>
+        <div className="example">
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            disablePointerLock
+          >
+            Draggable label (no pointer lock):
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  disablePointerLock
+>
+  Draggable label (no pointer lock):
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
         <h3 id="draggable-label-modifiers">With modifier keys</h3>
         <div className="example">
           <DraggableLabelNumberInput
