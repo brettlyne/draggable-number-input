@@ -538,6 +538,56 @@ function App() {
 `}
         />
 
+        <h3 id="draggable-label-input-styles">Custom input styles</h3>
+        <div className="example">
+          <style>
+            {`
+            .custom-input {
+              color: blue;
+            }
+            .custom-input.dragging {
+              background: yellow;
+            }  
+            `}
+          </style>
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            inputClassName="custom-input"
+            inputStyle={{
+              fontWeight: "bold",
+              padding: "4px 12px",
+              borderRadius: "24px",
+            }}
+          >
+            Draggable label:
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<style>
+  .custom-input { color: blue; }
+  .custom-input.dragging { background: yellow; }  
+</style>
+...
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  inputClassName="custom-input"
+  inputStyle={{
+    fontWeight: "bold",
+    padding: "4px 12px",
+    borderRadius: "24px",
+  }}
+>
+  Draggable label:
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
         <div className="api-section">
           <h2 id="label-input-api">Draggable Label Number Input API</h2>
           <p>

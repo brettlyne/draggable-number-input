@@ -222,7 +222,7 @@ export function DraggableLabelNumberInput({
           onChange={handleInputChange}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className={inputClassName}
+          className={`${inputClassName} ${isDragging ? "dragging" : ""}`}
           style={inputStyle}
         />
       )}
