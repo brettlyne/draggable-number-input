@@ -170,17 +170,21 @@ export function DraggableLabelNumberInput({
   );
 
   const handleMouseUp = useCallback(() => {
-    setIsMouseDown(false);
-    totalMovement.current = 0;
     if (isDragging) {
       setIsDragging(false);
       document.removeEventListener("keydown", handleModifierKeyDuringDrag);
       document.removeEventListener("keyup", handleModifierKeyDuringDrag);
       onDragEnd();
     }
+    if (isMouseDown && !isDragging) {
+      // if we didn't move the mouse, trigger a click so input is focused
+      labelRef.current?.click();
+    }
     if (!disablePointerLock && document.pointerLockElement) {
       document.exitPointerLock();
     }
+    setIsMouseDown(false);
+    totalMovement.current = 0;
   }, [isDragging, handleModifierKeyDuringDrag, onDragEnd, disablePointerLock]);
 
   useEffect(() => {
