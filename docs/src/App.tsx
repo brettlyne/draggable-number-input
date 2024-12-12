@@ -517,6 +517,27 @@ function App() {
 `}
         />
 
+        <h3 id="draggable-label-styles">Label with no &lt;input&gt;</h3>
+        <div className="example">
+          <DraggableLabelNumberInput value={value} onChange={setValue} noInput>
+            Draggable label: <strong>{value}</strong>
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput 
+  value={value} 
+  onChange={setValue} 
+  noInput
+>
+  Draggable label: <strong>{value}</strong>
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
         <div className="api-section">
           <h2 id="label-input-api">Draggable Label Number Input API</h2>
           <p>
