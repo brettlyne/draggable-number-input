@@ -36,18 +36,20 @@ function App() {
         <h3 id="input-examples">Basic examples</h3>
         <div style={{ display: "flex", gap: "20px" }}>
           <div className="example top-example" style={{ flex: 1 }}>
+            <p>Draggable Number Input</p>
             <label>
               <strong>Drag on Input:</strong>
               <DraggableNumberInput
                 value={value}
                 onChange={setValue}
-                style={{ outline: "4px solid gold" }}
+                style={{ outline: "6px solid gold" }}
               />
             </label>
           </div>
           <div className="example top-example" style={{ flex: 1 }}>
+            <p>Draggable Label Number Input</p>
             <DraggableLabelNumberInput value={value} onChange={setValue}>
-              <strong style={{ background: "gold", padding: "4px" }}>
+              <strong style={{ borderBottom: "6px solid gold" }}>
                 Drag on Label:
               </strong>
             </DraggableLabelNumberInput>

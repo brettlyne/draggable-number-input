@@ -12,18 +12,18 @@
   --zinc-800: #27272a;
   --zinc-900: #18181b;
   --zinc-950: #09090b;
-  --green: #567b00;
-  --lighter-green: #d9f95e;
-  --light-teal: #d4e9e6;
-  --dark-teal: #485e60;
+  --lightest-teal: #d4e9e3;
+  --lighter-teal: #74eecf;
+  --teal: #26795d;
+  --dark-teal: #59695f;
 
   --background-color: var(--zinc-50);
   --text-color: var(--zinc-600);
   --code-background: var(--zinc-100);
   --border-color: var(--zinc-300);
-  --link-color: var(--zinc-500);
-  --example-background: var(--light-teal);
-  --example-text: var(var(--zinc-600));
+  --link-color: var(--teal);
+  --example-background: var(--lightest-teal);
+  --example-text: var(--zinc-600);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,7 +32,7 @@
     --text-color: var(--zinc-100);
     --code-background: var(--zinc-700);
     --border-color: var(--zinc-600);
-    --link-color: var(--lighter-green);
+    --link-color: var(--lighter-teal);
     --example-background: var(--dark-teal);
     --example-text: var(--zinc-150);
   }

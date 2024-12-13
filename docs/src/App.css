@@ -67,8 +67,8 @@ ul.sidebar {
     margin-left: 8px;
   }
   &.top-example {
+    padding: 20px 24px;
     input {
-      /* margin-left: 0; */
       width: 80px;
     }
   }
