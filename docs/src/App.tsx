@@ -32,7 +32,29 @@ function App() {
           </a>{" "}
           to set the value.
         </p>
-        <p>Behaviors:</p>
+
+        <h3 id="input-examples">Basic examples</h3>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <div className="example top-example" style={{ flex: 1 }}>
+            <label>
+              <strong>Drag on Input:</strong>
+              <DraggableNumberInput
+                value={value}
+                onChange={setValue}
+                style={{ outline: "4px solid gold" }}
+              />
+            </label>
+          </div>
+          <div className="example top-example" style={{ flex: 1 }}>
+            <DraggableLabelNumberInput value={value} onChange={setValue}>
+              <strong style={{ background: "gold", padding: "4px" }}>
+                Drag on Label:
+              </strong>
+            </DraggableLabelNumberInput>
+          </div>
+        </div>
+
+        <h3>Behaviors:</h3>
 
         <ul>
           <li>
@@ -279,7 +301,7 @@ function App() {
                   <code>{`function`}</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when the value changes</td>
               </tr>
@@ -291,7 +313,7 @@ function App() {
                   <code>{`function`}</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when dragging begins</td>
               </tr>
@@ -303,7 +325,7 @@ function App() {
                   <code>{`function`}</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when dragging ends</td>
               </tr>
@@ -621,7 +643,7 @@ function App() {
                   <code>function</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when the value changes</td>
               </tr>
@@ -633,7 +655,7 @@ function App() {
                   <code>function</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when dragging begins</td>
               </tr>
@@ -645,7 +667,7 @@ function App() {
                   <code>function</code>
                 </td>
                 <td>
-                  <code>{`() => {}`}</code>
+                  <code className="no-break">{`() => {}`}</code>
                 </td>
                 <td>Callback function called when dragging ends</td>
               </tr>

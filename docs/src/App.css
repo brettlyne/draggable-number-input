@@ -38,8 +38,11 @@ ul.sidebar {
   }
 
   a {
-    color: var(--zinc-600);
     border: none;
+    color: var(--zinc-600);
+    @media (prefers-color-scheme: dark) {
+      color: var(--zinc-200);
+    }
 
     &:hover {
       color: var(--link-color);
@@ -56,8 +59,18 @@ ul.sidebar {
 .example {
   padding: 20px 36px;
   background-color: var(--example-background);
+  border-radius: 12px;
+  label {
+    color: var(--example-text);
+  }
   input {
     margin-left: 8px;
+  }
+  &.top-example {
+    input {
+      /* margin-left: 0; */
+      width: 80px;
+    }
   }
 }
 
@@ -75,8 +88,11 @@ ul.sidebar {
     line-height: 22px;
     padding: 0;
     margin-right: 16px;
-    color: var(--zinc-600);
     font-weight: normal;
+    color: var(--zinc-600);
+    @media (prefers-color-scheme: dark) {
+      color: var(--zinc-200);
+    }
   }
 
   button.active {
@@ -100,14 +116,20 @@ ul.sidebar {
   }
 
   th {
-    background-color: #f5f5f5;
+    background: var(--zinc-150);
+    @media (prefers-color-scheme: dark) {
+      background: var(--zinc-800);
+    }
   }
 
   code {
-    background: var(--zinc-150);
-    line-height: 18px;
+    line-height: 20px;
     padding: 0 4px;
     border-radius: 2px;
+    background: var(--zinc-150);
+    @media (prefers-color-scheme: dark) {
+      background: var(--zinc-600);
+    }
   }
 }
 
