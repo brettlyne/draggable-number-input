@@ -17,7 +17,8 @@ export function DraggableNumberInput({
   onChange = noop,
   onDragStart = noop,
   onDragEnd = noop,
-  ...props
+  style,
+  ...restProps
 }: DraggableNumberInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -196,11 +197,14 @@ export function DraggableNumberInput({
           isDragging ? "dragging" : ""
         }`}
         style={{
-          cursor: "ew-resize",
-          userSelect: "none",
-          caretColor: isDragging ? "transparent" : "initial",
+          ...{
+            cursor: "ew-resize",
+            userSelect: "none",
+            caretColor: isDragging ? "transparent" : "initial",
+          },
+          ...style,
         }}
-        {...props}
+        {...restProps}
       />
       {isMouseDown && !disablePointerLock && (
         <DragCursor cursorPosition={cursorPosition} />

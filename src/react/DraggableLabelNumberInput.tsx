@@ -21,7 +21,8 @@ export function DraggableLabelNumberInput({
   onChange = noop,
   onDragStart = noop,
   onDragEnd = noop,
-  ...props
+  style,
+  ...restProps
 }: DraggableLabelNumberInputProps) {
   const labelRef = useRef<HTMLLabelElement>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -207,10 +208,13 @@ export function DraggableLabelNumberInput({
         isDragging ? "dragging" : ""
       }`}
       style={{
-        cursor: "ew-resize",
-        userSelect: "none",
+        ...{
+          cursor: "ew-resize",
+          userSelect: "none",
+        },
+        ...style,
       }}
-      {...props}
+      {...restProps}
     >
       {children}
       {!noInput && (
