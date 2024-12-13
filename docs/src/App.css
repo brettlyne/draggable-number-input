@@ -69,7 +69,7 @@ ul.sidebar {
   &.top-example {
     padding: 20px 24px;
     input {
-      width: 80px;
+      width: 100px;
     }
   }
 }
