@@ -1,20 +1,24 @@
 {
   "author": "Brett Holcomb",
   "name": "draggable-number-input",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
   "description": "A draggable number input component for React and Svelte. Mimics the behavior in Figma, Blender, After Effects, etc.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "docs:dev": "cd docs && npm run dev",
     "docs:build": "cd docs && npm run build",
-    "build:cli": "tsc -p tsconfig.json",
-    "check:components": "tsc -p tsconfig.components.json --noEmit",
-    "cli": "tsx cli/index.ts"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "react",
@@ -27,7 +31,8 @@
     "draggable-number-input": "./dist/cli/index.js"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
     "svelte": "^5.0.0"
   },
   "devDependencies": {
@@ -39,6 +44,7 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.0",
     "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.0.0",
     "commander": "^12.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
