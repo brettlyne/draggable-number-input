@@ -1,3 +1,4 @@
+import React from "react";
 import type { DraggableNumberInputProps } from "./draggable-number-input.types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
