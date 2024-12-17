@@ -65,7 +65,7 @@ export function DraggableLabelNumberInput({
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
       if (!disablePointerLock) {
-        labelRef.current?.requestPointerLock();
+        labelRef.current?.requestPointerLock?.();
       }
     },
     [value, disablePointerLock]

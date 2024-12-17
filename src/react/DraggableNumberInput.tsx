@@ -60,7 +60,7 @@ export function DraggableNumberInput({
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
       if (!disablePointerLock) {
-        inputRef.current?.requestPointerLock();
+        inputRef.current?.requestPointerLock?.();
       }
     },
     [value, disablePointerLock]
