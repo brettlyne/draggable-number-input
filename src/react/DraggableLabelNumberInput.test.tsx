@@ -13,7 +13,11 @@ describe("DraggableLabelNumberInput", () => {
   });
 
   it("renders label and input with initial value", () => {
-    render(<DraggableLabelNumberInput value={42}>Test Label</DraggableLabelNumberInput>);
+    render(
+      <DraggableLabelNumberInput value={42}>
+        Test Label
+      </DraggableLabelNumberInput>
+    );
     const label = screen.getByText("Test Label");
     const input = screen.getByRole("textbox") as HTMLInputElement;
     expect(label).toBeInTheDocument();
@@ -23,7 +27,11 @@ describe("DraggableLabelNumberInput", () => {
 
   it("calls onChange when typing a new value", () => {
     const handleChange = jest.fn();
-    render(<DraggableLabelNumberInput value={42} onChange={handleChange}>Test Label</DraggableLabelNumberInput>);
+    render(
+      <DraggableLabelNumberInput value={42} onChange={handleChange}>
+        Test Label
+      </DraggableLabelNumberInput>
+    );
     const input = screen.getByRole("textbox");
 
     fireEvent.change(input, { target: { value: "50" } });
@@ -32,7 +40,11 @@ describe("DraggableLabelNumberInput", () => {
 
   it("handles invalid input by maintaining the last valid value on blur", () => {
     const handleChange = jest.fn();
-    render(<DraggableLabelNumberInput value={42} onChange={handleChange}>Test Label</DraggableLabelNumberInput>);
+    render(
+      <DraggableLabelNumberInput value={42} onChange={handleChange}>
+        Test Label
+      </DraggableLabelNumberInput>
+    );
     const input = screen.getByRole("textbox");
 
     fireEvent.change(input, { target: { value: "invalid" } });
