@@ -207,9 +207,11 @@ function App() {
               value={value}
               onChange={setValue}
               onDragStart={() => {
+                // eslint-disable-next-line
                 console.log("onDragStart");
               }}
               onDragEnd={() => {
+                // eslint-disable-next-line
                 console.log("onDragEnd");
               }}
             />
@@ -478,9 +480,11 @@ function App() {
             value={value}
             onChange={setValue}
             onDragStart={() => {
+              // eslint-disable-next-line
               console.log("onDragStart");
             }}
             onDragEnd={() => {
+              // eslint-disable-next-line
               console.log("onDragEnd");
             }}
           >
