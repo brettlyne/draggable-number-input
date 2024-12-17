@@ -76,10 +76,6 @@ export function DraggableNumberInput({
 
   const updateDelta = useCallback(
     (e: React.KeyboardEvent) => {
-      console.log(
-        "🚀 ~ file: DraggableNumberInput.tsx:81 ~ isMouseDown:",
-        isMouseDown
-      );
       if (!isMouseDown) return;
       applyMovement(totalMovement.current, e);
     },
