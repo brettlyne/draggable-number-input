@@ -50,16 +50,24 @@ export function DraggableNumberInput({
   };
 
   const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
+    (e: React.MouseEvent | React.TouchEvent) => {
       if (!inputRef.current) return;
+      let x = 0,
+        y = 0;
+      if (e instanceof MouseEvent) {
+        [x, y] = [e.clientX, e.clientY];
+      }
+      if (e instanceof TouchEvent) {
+        [x, y] = [e.touches[0].clientX, e.touches[0].clientY];
+      }
 
       setIsMouseDown(true);
-      startX.current = e.clientX;
+      startX.current = x;
       startValue.current = value;
       totalMovement.current = 0;
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+      setCursorPosition({ x, y });
 
-      if (!disablePointerLock) {
+      if (!disablePointerLock && e instanceof MouseEvent) {
         inputRef.current?.requestPointerLock?.();
       }
     },
@@ -68,6 +76,10 @@ export function DraggableNumberInput({
 
   const updateDelta = useCallback(
     (e: React.KeyboardEvent) => {
+      console.log(
+        "🚀 ~ file: DraggableNumberInput.tsx:81 ~ isMouseDown:",
+        isMouseDown
+      );
       if (!isMouseDown) return;
       applyMovement(totalMovement.current, e);
     },
@@ -75,7 +87,7 @@ export function DraggableNumberInput({
   );
 
   const getModifiers = useCallback(
-    (e: React.KeyboardEvent | KeyboardEvent | MouseEvent) => {
+    (e: React.KeyboardEvent | KeyboardEvent | MouseEvent | TouchEvent) => {
       const mods = { ...defaultModifiers, ...modifierKeys };
 
       for (const key in mods) {
@@ -91,7 +103,7 @@ export function DraggableNumberInput({
   );
 
   const applyMovement = useCallback(
-    (newMovement: number, e: React.KeyboardEvent | MouseEvent) => {
+    (newMovement: number, e: React.KeyboardEvent | MouseEvent | TouchEvent) => {
       const { sensitivity, multiplier } = getModifiers(e);
       const delta = newMovement * sensitivity * multiplier;
       let newValue = startValue.current + delta;
@@ -123,10 +135,18 @@ export function DraggableNumberInput({
   };
 
   const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
+    (e: MouseEvent | TouchEvent) => {
       if (!isMouseDown) return;
 
-      if (!disablePointerLock && document.pointerLockElement) {
+      if (e instanceof TouchEvent) {
+        e.preventDefault();
+      }
+
+      if (
+        !disablePointerLock &&
+        document.pointerLockElement &&
+        e instanceof MouseEvent
+      ) {
         setCursorPosition((prev) => {
           const width = window.innerWidth;
           const height = window.innerHeight;
@@ -136,9 +156,11 @@ export function DraggableNumberInput({
         });
       }
 
-      const newMovement = disablePointerLock
-        ? e.clientX - startX.current
-        : totalMovement.current + e.movementX;
+      const x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+      const newMovement =
+        disablePointerLock || e instanceof TouchEvent
+          ? x - startX.current
+          : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
         setIsDragging(true);
         onDragStart();
@@ -164,7 +186,7 @@ export function DraggableNumberInput({
       setIsDragging(false);
       onDragEnd();
     }
-    if (!disablePointerLock && document.pointerLockElement) {
+    if (document.pointerLockElement) {
       document.exitPointerLock();
     }
   }, [isDragging, onDragEnd, disablePointerLock]);
@@ -172,11 +194,17 @@ export function DraggableNumberInput({
   useEffect(() => {
     if (isMouseDown) {
       document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("touchmove", handleMouseMove, {
+        passive: false,
+      });
       document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchend", handleMouseUp);
 
       return () => {
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
+        document.removeEventListener("touchmove", handleMouseMove);
+        document.removeEventListener("touchend", handleMouseUp);
       };
     }
   }, [isMouseDown, handleMouseMove, handleMouseUp]);
@@ -192,6 +220,7 @@ export function DraggableNumberInput({
         onChange={handleInputChange}
         onBlur={handleBlur}
         onMouseDown={handleMouseDown}
+        onTouchStart={handleMouseDown}
         onKeyDown={handleKeyDown}
         onKeyUp={updateDelta}
         className={`draggable-number-input ${className} ${
