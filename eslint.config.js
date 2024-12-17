@@ -24,5 +24,10 @@ export default [
       "react/no-unescaped-entities": "off",
       "no-console": "warn",
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
 ];
