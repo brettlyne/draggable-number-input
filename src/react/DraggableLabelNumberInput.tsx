@@ -5,6 +5,7 @@ import {
   defaultModifiers,
   formatNumber,
   getDecimalPlaces,
+  handleArrow,
 } from "./defaults-and-utils";
 import { DragCursor } from "./DragCursor";
 
@@ -118,15 +119,7 @@ export function DraggableLabelNumberInput({
 
   const handleArrowKeyDown = (event: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(event);
-    const increment = multiplier;
-
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      onChange(value + increment);
-    } else if (event.key === "ArrowDown") {
-      event.preventDefault();
-      onChange(value - increment);
-    }
+    handleArrow(event, multiplier, value, onChange);
   };
 
   const handleModifierKeyDuringDrag = useCallback(

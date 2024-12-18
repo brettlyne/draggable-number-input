@@ -29,3 +29,17 @@ export function getDecimalPlaces(multiplier: number): number {
   if (multiplier >= 1) return 0;
   return Math.abs(Math.floor(Math.log10(multiplier)));
 }
+
+export function handleArrow(
+  e: React.KeyboardEvent,
+  multiplier: number,
+  value: number,
+  onChange: (value: number) => void
+) {
+  if (e.key === "ArrowUp") {
+    onChange(value + multiplier);
+  }
+  if (e.key === "ArrowDown") {
+    onChange(value - multiplier);
+  }
+}
