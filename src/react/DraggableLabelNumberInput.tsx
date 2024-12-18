@@ -73,7 +73,7 @@ export function DraggableLabelNumberInput({
       totalMovement.current = 0;
       setCursorPosition({ x, y });
 
-      if (!disablePointerLock && e instanceof MouseEvent) {
+      if (!disablePointerLock && !(e instanceof TouchEvent)) {
         labelRef.current?.requestPointerLock?.();
       }
     },
@@ -116,7 +116,7 @@ export function DraggableLabelNumberInput({
     [onChange, getModifiers]
   );
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleArrowKeyDown = (event: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(event);
     const increment = multiplier;
 
@@ -251,7 +251,7 @@ export function DraggableLabelNumberInput({
           value={localValue}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleArrowKeyDown}
           className={`${inputClassName} ${isDragging ? "dragging" : ""}`}
           style={inputStyle}
         />
