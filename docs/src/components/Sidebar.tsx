@@ -51,9 +51,39 @@ const Sidebar = () => {
           <ul>
             <li>
               <a href="#label-examples">Examples</a>
+              <ul className="example-list">
+                <li>
+                  <a href="#label-ex-basic">Basic example</a>
+                </li>
+                <li>
+                  <a href="#label-ex-no-pointer-lock">No pointer lock</a>
+                </li>
+                <li>
+                  <a href="#label-ex-custom-modifier-keys">
+                    Custom modifier keys
+                  </a>
+                </li>
+                <li>
+                  <a href="#label-ex-drag-events">Drag start and end events</a>
+                </li>
+                <li>
+                  <a href="#label-ex-custom-styles">Custom styles on drag</a>
+                </li>
+                <li>
+                  <a href="#label-ex-no-input">No input field</a>
+                </li>
+                <li>
+                  <a href="#label-ex-custom-input-styles">
+                    Custom input styles
+                  </a>
+                </li>
+              </ul>
             </li>
             <li>
               <a href="#label-installation">Installation</a>
+            </li>
+            <li>
+              <a href="#label-api">API</a>
             </li>
           </ul>
         </li>
