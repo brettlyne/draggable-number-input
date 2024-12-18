@@ -29,6 +29,7 @@ ul.sidebar {
 
   ul {
     padding-left: 20px;
+    padding-top: 4px;
     list-style-type: none;
 
     li {
@@ -38,12 +39,13 @@ ul.sidebar {
   }
 
   ul.example-list {
-    padding-left: 8px;
-    padding-top: 4px;
-    font-size: 0.9em;
+    padding-left: 0px;
+    padding-top: 6px;
+    padding-bottom: 2px;
     li {
-      list-style: "- ";
-      line-height: 1.1em;
+      list-style-type: none;
+      font-size: 0.9em;
+      line-height: 1.2em;
     }
   }
 
