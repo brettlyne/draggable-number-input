@@ -67,7 +67,7 @@ export function DraggableNumberInput({
       totalMovement.current = 0;
       setCursorPosition({ x, y });
 
-      if (!disablePointerLock && e instanceof MouseEvent) {
+      if (!disablePointerLock && !(e instanceof TouchEvent)) {
         inputRef.current?.requestPointerLock?.();
       }
     },
@@ -75,7 +75,7 @@ export function DraggableNumberInput({
   );
 
   const updateDelta = useCallback(
-    (e: React.KeyboardEvent) => {
+    (e: KeyboardEvent) => {
       if (!isMouseDown) return;
       applyMovement(totalMovement.current, e);
     },
@@ -99,7 +99,7 @@ export function DraggableNumberInput({
   );
 
   const applyMovement = useCallback(
-    (newMovement: number, e: React.KeyboardEvent | MouseEvent | TouchEvent) => {
+    (newMovement: number, e: KeyboardEvent | MouseEvent | TouchEvent) => {
       const { sensitivity, multiplier } = getModifiers(e);
       const delta = newMovement * sensitivity * multiplier;
       let newValue = startValue.current + delta;
@@ -110,7 +110,7 @@ export function DraggableNumberInput({
     [onChange, getModifiers]
   );
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleArrowKeyDown = (e: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(e);
     const increment = multiplier;
 
@@ -120,15 +120,22 @@ export function DraggableNumberInput({
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       onChange(value - increment);
-    } else if (
-      e.key === "Shift" ||
-      e.key === "Control" ||
-      e.key === "Meta" ||
-      e.key === "Alt"
-    ) {
-      updateDelta(e);
     }
   };
+
+  const handleModifierKeyDuringDrag = useCallback(
+    (e: KeyboardEvent) => {
+      if (
+        e.key === "Shift" ||
+        e.key === "Control" ||
+        e.key === "Meta" ||
+        e.key === "Alt"
+      ) {
+        updateDelta(e);
+      }
+    },
+    [updateDelta]
+  );
 
   const handleMouseMove = useCallback(
     (e: MouseEvent | TouchEvent) => {
@@ -159,6 +166,8 @@ export function DraggableNumberInput({
           : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
         setIsDragging(true);
+        document.addEventListener("keydown", handleModifierKeyDuringDrag);
+        document.addEventListener("keyup", handleModifierKeyDuringDrag);
         onDragStart();
       }
       totalMovement.current = newMovement;
@@ -180,6 +189,8 @@ export function DraggableNumberInput({
     totalMovement.current = 0;
     if (isDragging) {
       setIsDragging(false);
+      document.removeEventListener("keydown", handleModifierKeyDuringDrag);
+      document.removeEventListener("keyup", handleModifierKeyDuringDrag);
       onDragEnd();
     }
     if (document.pointerLockElement) {
@@ -217,8 +228,7 @@ export function DraggableNumberInput({
         onBlur={handleBlur}
         onMouseDown={handleMouseDown}
         onTouchStart={handleMouseDown}
-        onKeyDown={handleKeyDown}
-        onKeyUp={updateDelta}
+        onKeyDown={handleArrowKeyDown}
         className={`draggable-number-input ${className} ${
           isDragging ? "dragging" : ""
         }`}
