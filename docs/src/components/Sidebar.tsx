@@ -12,6 +12,29 @@ const Sidebar = () => {
           <ul>
             <li>
               <a href="#draggable-number-input">Examples</a>
+              <ul className="example-list">
+                <li>
+                  <a href="#draggable-ex-basic">Basic example</a>
+                </li>
+                <li>
+                  <a href="#draggable-ex-no-pointer-lock">No pointer lock</a>
+                </li>
+                <li>
+                  <a href="#draggable-ex-custom-modifier-keys">
+                    Custom modifier keys
+                  </a>
+                </li>
+                <li>
+                  <a href="#draggable-ex-drag-events">
+                    Drag start and end events
+                  </a>
+                </li>
+                <li>
+                  <a href="#draggable-ex-custom-styles">
+                    Custom styles on drag
+                  </a>
+                </li>
+              </ul>
             </li>
             <li>
               <a href="#input-installation">Installation</a>

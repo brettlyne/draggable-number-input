@@ -37,6 +37,16 @@ ul.sidebar {
     }
   }
 
+  ul.example-list {
+    padding-left: 8px;
+    padding-top: 4px;
+    font-size: 0.9em;
+    li {
+      list-style: "- ";
+      line-height: 1.1em;
+    }
+  }
+
   a {
     border: none;
     color: var(--zinc-600);
