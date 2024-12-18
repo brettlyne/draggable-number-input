@@ -112,4 +112,53 @@ describe("DraggableNumberInput", () => {
     fireEvent.mouseUp(input);
     fireEvent.keyUp(document, { key: "Shift", shiftKey: false });
   });
+
+  it("handles arrow keys with different modifier keys correctly", () => {
+    const handleChange = jest.fn();
+
+    render(
+      <DraggableNumberInput
+        value={0}
+        onChange={handleChange}
+        modifierKeys={{
+          default: { multiplier: 2, sensitivity: 0.5 },
+          ctrlKey: { multiplier: 0.1, sensitivity: 0.5 },
+          altKey: { multiplier: 0.01, sensitivity: 0.2 },
+          shiftKey: { multiplier: 0.001, sensitivity: 0.25 },
+          metaKey: { multiplier: 10, sensitivity: 0.125 },
+        }}
+      />
+    );
+
+    const input = screen.getByRole("textbox");
+    input.focus();
+
+    // Two up arrows with default multiplier (2)
+    fireEvent.keyDown(input, { key: "ArrowUp" });
+    expect(handleChange).toHaveBeenLastCalledWith(2);
+
+    // Down arrow with ctrl (0.1)
+    fireEvent.keyDown(input, { key: "Control", ctrlKey: true });
+    fireEvent.keyDown(input, { key: "ArrowDown", ctrlKey: true });
+    fireEvent.keyUp(input, { key: "Control", ctrlKey: false });
+    expect(handleChange).toHaveBeenLastCalledWith(-0.1);
+
+    // Three up arrows with alt (0.01)
+    fireEvent.keyDown(input, { key: "Alt", altKey: true });
+    fireEvent.keyDown(input, { key: "ArrowUp", altKey: true });
+    fireEvent.keyUp(input, { key: "Alt", altKey: false });
+    expect(handleChange).toHaveBeenLastCalledWith(0.01);
+
+    // Five down arrows with shift (0.001)
+    fireEvent.keyDown(input, { key: "Shift", shiftKey: true });
+    fireEvent.keyDown(input, { key: "ArrowDown", shiftKey: true });
+    fireEvent.keyUp(input, { key: "Shift", shiftKey: false });
+    expect(handleChange).toHaveBeenLastCalledWith(-0.001);
+
+    // Three up arrows with meta (10)
+    fireEvent.keyDown(input, { key: "Meta", metaKey: true });
+    fireEvent.keyDown(input, { key: "ArrowUp", metaKey: true });
+    fireEvent.keyUp(input, { key: "Meta", metaKey: false });
+    expect(handleChange).toHaveBeenLastCalledWith(10);
+  });
 });
