@@ -71,10 +71,10 @@ const Sidebar = () => {
                   <a href="#label-ex-drag-events">Drag start and end events</a>
                 </li>
                 <li>
-                  <a href="#label-ex-custom-styles">Custom styles on drag</a>
+                  <a href="#label-ex-no-input">Label with no input</a>
                 </li>
                 <li>
-                  <a href="#label-ex-no-input">No input field</a>
+                  <a href="#label-ex-custom-styles">Custom styles on drag</a>
                 </li>
                 <li>
                   <a href="#label-ex-custom-input-styles">

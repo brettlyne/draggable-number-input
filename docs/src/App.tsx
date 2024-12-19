@@ -505,6 +505,27 @@ function App() {
 `}
         />
 
+        <h3 id="label-ex-no-input">Label with no &lt;input&gt;</h3>
+        <div className="example">
+          <DraggableLabelNumberInput value={value} onChange={setValue} noInput>
+            Draggable label: <strong>{value}</strong>
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput 
+  value={value} 
+  onChange={setValue} 
+  noInput
+>
+  Draggable label: <strong>{value}</strong>
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
         <h3 id="label-ex-custom-styles">Custom styles while dragging</h3>
         <div className="example">
           <style>
@@ -537,27 +558,6 @@ function App() {
   className="yellow-on-drag"
 >
   Draggable label:
-</DraggableLabelNumberInput>
-`}
-          svelte={`
-`}
-        />
-
-        <h3 id="label-ex-no-input">Label with no &lt;input&gt;</h3>
-        <div className="example">
-          <DraggableLabelNumberInput value={value} onChange={setValue} noInput>
-            Draggable label: <strong>{value}</strong>
-          </DraggableLabelNumberInput>
-        </div>
-        <CodePreview
-          mode={mode}
-          react={`
-<DraggableLabelNumberInput 
-  value={value} 
-  onChange={setValue} 
-  noInput
->
-  Draggable label: <strong>{value}</strong>
 </DraggableLabelNumberInput>
 `}
           svelte={`
