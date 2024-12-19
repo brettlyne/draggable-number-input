@@ -24,7 +24,12 @@ import {
 // Basic usage with input
 function MyComponent() {
   const [value, setValue] = useState(0);
-  return <DraggableNumberInput value={value} onChange={setValue} />;
+  return (
+    <label>
+      Lucky number:
+      <DraggableNumberInput value={value} onChange={setValue} />;
+    </label>
+  );
 }
 
 // Basic usage with label
