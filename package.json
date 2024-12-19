@@ -2,8 +2,8 @@
   "author": "Brett Holcomb",
   "name": "draggable-number-input",
   "private": false,
-  "version": "0.0.1",
-  "description": "A draggable number input component for React and Svelte. Mimics the behavior in Figma, Blender, After Effects, etc.",
+  "version": "0.0.2",
+  "description": "A draggable number input component for React. Mimics the behavior in Figma, Blender, After Effects, etc.",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -23,8 +23,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "publish": "npm publish"
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "keywords": [
     "react",
@@ -35,9 +34,6 @@
     "drag",
     "dragging"
   ],
-  "bin": {
-    "draggable-number-input": "./dist/cli/index.js"
-  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
@@ -69,5 +65,8 @@
     "typescript-eslint": "^8.18.1"
   },
   "license": "MIT",
-  "repository": "https://github.com/brettlyne/draggable-number-input"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brettlyne/draggable-number-input.git"
+  }
 }
