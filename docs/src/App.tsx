@@ -299,6 +299,26 @@ function App() {
               </tr>
               <tr>
                 <td>
+                  <code>{`min`}</code>
+                </td>
+                <td>
+                  <code>{`number`}</code>
+                </td>
+                <td>Optional</td>
+                <td>The minimum allowed value</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>{`max`}</code>
+                </td>
+                <td>
+                  <code>{`number`}</code>
+                </td>
+                <td>Optional</td>
+                <td>The maximum allowed value</td>
+              </tr>
+              <tr>
+                <td>
                   <code>{`onChange`}</code>
                 </td>
                 <td>
@@ -664,6 +684,26 @@ function App() {
                 </td>
                 <td>Required</td>
                 <td>The current value of the input</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>min</code>
+                </td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>Optional</td>
+                <td>The minimum allowed value</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>max</code>
+                </td>
+                <td>
+                  <code>number</code>
+                </td>
+                <td>Optional</td>
+                <td>The maximum allowed value</td>
               </tr>
               <tr>
                 <td>
