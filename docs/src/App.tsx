@@ -89,6 +89,39 @@ function App() {
           </li>
         </ul>
 
+        <h2>Installation</h2>
+        <p>
+          <pre>
+            <code>npm install draggable-number-input</code>
+          </pre>
+        </p>
+
+        <h3>Usage</h3>
+        <pre>
+          <code>
+            {`import { 
+  DraggableNumberInput, 
+  DraggableLabelNumberInput 
+} from "draggable-number-input";
+
+...
+
+const DemoInputs = () => {
+  const [value, setValue] = useState(0);
+  return (<>
+    <label>
+      Lucky number:
+      <DraggableNumberInput value={value} onChange={setValue} />
+    </label>
+
+    <DraggableLabelNumberInput value={value} onChange={setValue}>
+      Drag me:
+    </DraggableLabelNumberInput>
+  </>);
+}`}
+          </code>
+        </pre>
+
         <h2 id="draggable-number-input">&lt;DraggableNumberInput&gt;</h2>
 
         <h3 id="draggable-ex-basic">Basic example</h3>
