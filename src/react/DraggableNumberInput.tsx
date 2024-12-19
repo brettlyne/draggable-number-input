@@ -55,10 +55,10 @@ export function DraggableNumberInput({
       if (!inputRef.current) return;
       let x = 0,
         y = 0;
-      if (e instanceof MouseEvent) {
+      if ("clientX" in e && "clientY" in e) {
         [x, y] = [e.clientX, e.clientY];
       }
-      if (e instanceof TouchEvent) {
+      if ("touches" in e) {
         [x, y] = [e.touches[0].clientX, e.touches[0].clientY];
       }
 

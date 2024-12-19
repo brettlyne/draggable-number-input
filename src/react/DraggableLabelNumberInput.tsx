@@ -56,15 +56,15 @@ export function DraggableLabelNumberInput({
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent | React.TouchEvent) => {
-      // Prevent drag initiation if clicking on the input itself
+      // prevent drag initiation if clicking on the input itself
       if ((e.target as HTMLElement).tagName === "INPUT") return;
 
       let x = 0,
         y = 0;
-      if (e instanceof MouseEvent) {
+      if ("clientX" in e && "clientY" in e) {
         [x, y] = [e.clientX, e.clientY];
       }
-      if (e instanceof TouchEvent) {
+      if ("touches" in e) {
         [x, y] = [e.touches[0].clientX, e.touches[0].clientY];
       }
 
