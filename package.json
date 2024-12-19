@@ -30,7 +30,10 @@
     "react",
     "component",
     "number-input",
-    "draggable"
+    "draggable",
+    "input",
+    "drag",
+    "dragging"
   ],
   "bin": {
     "draggable-number-input": "./dist/cli/index.js"
