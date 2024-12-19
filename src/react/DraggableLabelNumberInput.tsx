@@ -13,6 +13,8 @@ const noop = () => {};
 
 export function DraggableLabelNumberInput({
   value,
+  min,
+  max,
   className = "",
   inputClassName = "",
   inputStyle,
@@ -37,6 +39,20 @@ export function DraggableLabelNumberInput({
   const startX = useRef(0);
   const currentMultiplier = useRef(1);
 
+  const constrainedOnChange = useCallback(
+    (newValue: number) => {
+      let constrainedValue = newValue;
+      if (typeof min === "number") {
+        constrainedValue = Math.max(min, constrainedValue);
+      }
+      if (typeof max === "number") {
+        constrainedValue = Math.min(max, constrainedValue);
+      }
+      onChange(constrainedValue);
+    },
+    [onChange, min, max]
+  );
+
   useEffect(() => {
     const decimals = getDecimalPlaces(currentMultiplier.current);
     setLocalValue(formatNumber(value, decimals));
@@ -47,7 +63,7 @@ export function DraggableLabelNumberInput({
     setLocalValue(val);
     const num = parseFloat(val);
     if (!isNaN(num)) {
-      onChange(num);
+      constrainedOnChange(num);
     }
   };
 
@@ -113,14 +129,14 @@ export function DraggableLabelNumberInput({
       let newValue = startValue.current + delta;
       newValue = Math.round(newValue / multiplier) * multiplier;
       newValue = Object.is(newValue, -0) ? 0 : newValue; // avoid -0
-      onChange(newValue);
+      constrainedOnChange(newValue);
     },
-    [onChange, getModifiers]
+    [constrainedOnChange, getModifiers]
   );
 
   const handleArrowKeyDown = (event: React.KeyboardEvent) => {
     const { multiplier } = getModifiers(event);
-    handleArrow(event, multiplier, value, onChange);
+    handleArrow(event, multiplier, value, constrainedOnChange);
   };
 
   const handleModifierKeyDuringDrag = useCallback(

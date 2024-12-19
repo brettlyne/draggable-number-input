@@ -4,6 +4,8 @@ export interface DraggableLabelNumberInputProps
   inputClassName?: string;
   inputStyle?: React.CSSProperties;
   value: number;
+  min?: number;
+  max?: number;
   onChange?: (value: number) => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;

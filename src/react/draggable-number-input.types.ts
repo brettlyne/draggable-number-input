@@ -1,6 +1,8 @@
 export interface DraggableNumberInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   value: number;
+  min?: number;
+  max?: number;
   onChange?: (value: number) => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
