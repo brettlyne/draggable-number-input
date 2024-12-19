@@ -352,13 +352,37 @@ function App() {
                 <td>
                   <code>{`object`}</code>
                 </td>
-                <td>See description</td>
+                <td style={{ background: "var(--zinc-150)" }}>
+                  <code
+                    style={{
+                      whiteSpace: "pre",
+                      fontSize: ".8em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {`{
+  default: { 
+    multiplier: 1, 
+    sensitivity: 1 
+  },
+  shiftKey: { 
+    multiplier: 10, 
+    sensitivity: 0.5 
+  }
+}`}
+                  </code>
+                </td>
                 <td>
-                  Configuration for modifier key behavior. Can include{" "}
-                  <code>default</code>, <code>shiftKey</code>,{" "}
+                  Configuration for modifier key behavior.
+                  <div style={{ marginTop: "6px" }} />
+                  Can include <code>default</code>, <code>shiftKey</code>,{" "}
                   <code>ctrlKey</code>, <code>altKey</code>, and{" "}
                   <code>metaKey</code> settings, each with{" "}
                   <code>multiplier</code> and <code>sensitivity</code> values
+                  <div style={{ marginTop: "6px" }} />
+                  <a href="#draggable-ex-custom-modifier-keys">
+                    See the example above.
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -689,20 +713,45 @@ function App() {
               </tr>
               <tr>
                 <td>
-                  <code>modifierKeys</code>
+                  <code>{`modifierKeys`}</code>
                 </td>
                 <td>
-                  <code>object</code>
+                  <code>{`object`}</code>
                 </td>
-                <td>See description</td>
+                <td style={{ background: "var(--zinc-150)" }}>
+                  <code
+                    style={{
+                      whiteSpace: "pre",
+                      fontSize: ".8em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {`{
+  default: { 
+    multiplier: 1, 
+    sensitivity: 1 
+  },
+  shiftKey: { 
+    multiplier: 10, 
+    sensitivity: 0.5 
+  }
+}`}
+                  </code>
+                </td>
                 <td>
-                  Configuration for modifier key behavior. Can include{" "}
-                  <code>default</code>, <code>shiftKey</code>,{" "}
+                  Configuration for modifier key behavior.
+                  <div style={{ marginTop: "6px" }} />
+                  Can include <code>default</code>, <code>shiftKey</code>,{" "}
                   <code>ctrlKey</code>, <code>altKey</code>, and{" "}
                   <code>metaKey</code> settings, each with{" "}
                   <code>multiplier</code> and <code>sensitivity</code> values
+                  <div style={{ marginTop: "6px" }} />
+                  <a href="#label-ex-custom-modifier-keys">
+                    See the example above.
+                  </a>
                 </td>
               </tr>
+
               <tr>
                 <td>
                   <code>children</code>
