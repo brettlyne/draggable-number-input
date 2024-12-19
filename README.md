@@ -1,5 +1,7 @@
 # Draggable Number Input
 
+<a href="https://www.npmjs.com/package/draggable-number-input"><img src="https://img.shields.io/npm/v/draggable-number-input"></a>
+
 ![Draggable Number Input Preview](draggable-input-preview.gif)
 
 ## [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/) 👈 👈
