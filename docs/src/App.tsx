@@ -365,15 +365,13 @@ function App() {
           </table>
         </div>
 
-        <h1>Draggable Label Number Input</h1>
+        <h1 id="draggable-label-number-input">Draggable Label Number Input</h1>
         <p>
           Drag the label instead of the input. We can still use up/down arrow
           keys in the input with modifier keys.
         </p>
 
-        <h2 id="draggable-label-number-input">
-          &lt;DraggableLabelNumberInput&gt;
-        </h2>
+        <h2>&lt;DraggableLabelNumberInput&gt;</h2>
 
         <h3 id="label-ex-basic">Basic example</h3>
         <div className="example">
