@@ -84,6 +84,9 @@ function App() {
             multipliers serve as a "snapping" value while dragging, ie: if
             you're holding shift you'll move by 10 and snap to the nearest 10
           </li>
+          <li>
+            touch interactions are supported in addition to mouse dragging
+          </li>
         </ul>
 
         <h2 id="draggable-number-input">&lt;DraggableNumberInput&gt;</h2>
