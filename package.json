@@ -2,18 +2,17 @@
   "author": "Brett Holcomb",
   "name": "draggable-number-input",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "A draggable number input component for React. Mimics the behavior in Figma, Blender, After Effects, etc.",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean --outDir dist",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
