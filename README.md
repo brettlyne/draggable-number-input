@@ -40,9 +40,11 @@ function MyLabelComponent() {
 
 ## Features
 
-- drag left or right on an input (or label) to set the value
-- use up and down arrow keys to increment and decrement
-- allow modifier keys to multiply the increment
-- provide optional sensitivity setting per modifier key to more easily target values (ex: in Figma while holding shift you move by 10 and sensitivity is .5)
+- use pointer lock API to make it possible to drag past the edge of the screen and so your cursor is back on the input when you release the mouse.
+- use up and down arrow keys while input is focused to increment and decrement
+- allow modifier keys to multiply the increment (modifier keys also apply to arrow keys)
+- provide optional sensitivity setting per modifier key to more easily target values (ex: in Figma while holding shift you move by 10s and sensitivity is .5)
+- multipliers serve as a "snapping" value while dragging, ie: if you're holding shift you'll move by 10 and snap to the nearest 10
+- touch interactions are supported in addition to mouse dragging
 
 ### Docs: https://brettlyne.github.io/draggable-number-input/

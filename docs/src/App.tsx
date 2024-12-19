@@ -56,7 +56,7 @@ function App() {
           </div>
         </div>
 
-        <h3>Behaviors:</h3>
+        <h3>Features:</h3>
 
         <ul>
           <li>
