@@ -1,11 +1,10 @@
 # Draggable Number Input
 
-### Docs: https://brettlyne.github.io/draggable-number-input/
+![Draggable Number Input Preview](draggable-input-preview.gif)
 
-<!-- A [React](https://react.dev) and [Svelte](https://svelte.dev) -->
+## [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/) 👈 👈 👈
 
-A [React](https://react.dev)
-component intended to replicate the draggable number input behavior
+A [React](https://react.dev) component intended to replicate the draggable number input behavior
 we see in applications like Blender, Figma, and After Effects.
 
 ## Installation
