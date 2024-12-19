@@ -32,4 +32,5 @@ export interface DraggableLabelNumberInputProps
       sensitivity: number;
     };
   };
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }

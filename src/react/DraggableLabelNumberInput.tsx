@@ -24,6 +24,7 @@ export function DraggableLabelNumberInput({
   onDragStart = noop,
   onDragEnd = noop,
   style,
+  inputProps,
   ...restProps
 }: DraggableLabelNumberInputProps) {
   const labelRef = useRef<HTMLLabelElement>(null);
@@ -233,6 +234,10 @@ export function DraggableLabelNumberInput({
         },
         ...style,
       }}
+      aria-valuenow={value}
+      aria-label={
+        typeof children === "string" ? children : "Draggable number input"
+      }
       {...restProps}
     >
       {children}
@@ -247,6 +252,8 @@ export function DraggableLabelNumberInput({
           onKeyDown={handleArrowKeyDown}
           className={`${inputClassName} ${isDragging ? "dragging" : ""}`}
           style={inputStyle}
+          aria-label={`Enter value for ${typeof children === "string" ? children : "number input"}`}
+          {...inputProps}
         />
       )}
       {isMouseDown && !disablePointerLock && (

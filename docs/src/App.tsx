@@ -588,7 +588,7 @@ function App() {
 `}
         />
 
-        <h3 id="label-ex-custom-input-styles">Custom input styles</h3>
+        <h3 id="label-ex-custom-input-styles">Custom input styles and props</h3>
         <div className="example">
           <style>
             {`
@@ -609,6 +609,7 @@ function App() {
               padding: "4px 12px",
               borderRadius: "24px",
             }}
+            inputProps={{ "aria-label": "My lucky number" }}
           >
             Draggable label:
           </DraggableLabelNumberInput>
@@ -630,6 +631,7 @@ function App() {
     padding: "4px 12px",
     borderRadius: "24px",
   }}
+  inputProps={{ "aria-label": "My lucky number" }}
 >
   Draggable label:
 </DraggableLabelNumberInput>
@@ -794,9 +796,24 @@ function App() {
                   <code>React.CSSProperties</code>
                 </td>
                 <td>
-                  <code>{}</code>
+                  <code></code>
                 </td>
                 <td>Additional inline styles for the input element</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>inputProps</code>
+                </td>
+                <td>
+                  <code>React.InputHTMLAttributes</code>
+                </td>
+                <td>
+                  <code></code>
+                </td>
+                <td>
+                  Additional props to be passed to the input element. Useful for
+                  aria-label, etc.
+                </td>
               </tr>
             </tbody>
           </table>
