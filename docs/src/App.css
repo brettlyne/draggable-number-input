@@ -17,8 +17,6 @@ h1 {
   margin-top: 84px;
 }
 ul.sidebar {
-  position: sticky;
-  top: 40px;
   list-style-type: none;
   padding: 0;
 
@@ -28,13 +26,13 @@ ul.sidebar {
   }
 
   ul {
-    padding-left: 20px;
+    padding-left: 16px;
     padding-top: 4px;
     list-style-type: none;
 
     li {
       margin-top: 0px;
-      list-style-type: circle;
+      list-style-type: "•  ";
     }
   }
 

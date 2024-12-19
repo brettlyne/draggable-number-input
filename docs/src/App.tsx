@@ -14,7 +14,7 @@ function App() {
     <>
       <Sidebar />
       <div className="content large">
-        <h1>Draggable Number Inputs</h1>
+        <h1 id="intro">Draggable Number Inputs</h1>
         <p>
           <a href="https://react.dev">React</a>{" "}
           {/* and <a href="https://svelte.dev">Svelte</a>  */}
@@ -88,7 +88,7 @@ function App() {
 
         <h2 id="draggable-number-input">&lt;DraggableNumberInput&gt;</h2>
 
-        <h3 id="input-examples">Default behavior</h3>
+        <h3 id="draggable-ex-basic">Basic example</h3>
         <div className="example">
           <label>
             Lucky number:
@@ -107,7 +107,7 @@ function App() {
 `}
         />
 
-        <h3 id="input-examples">No pointer lock</h3>
+        <h3 id="draggable-ex-no-pointer-lock">No pointer lock</h3>
         <p>
           By default{" "}
           <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API">
@@ -143,7 +143,7 @@ function App() {
 `}
         />
 
-        <h3 id="input-examples">Custom Modifier Keys</h3>
+        <h3 id="draggable-ex-custom-modifier-keys">Custom Modifier Keys</h3>
         <div className="example">
           <label>
             Lucky number:
@@ -197,7 +197,7 @@ function App() {
 `}
         />
 
-        <h3 id="input-examples">
+        <h3 id="draggable-ex-drag-events">
           OnDragStart and OnDragEnd events (see console)
         </h3>
         <div className="example">
@@ -234,7 +234,7 @@ function App() {
 `}
         />
 
-        <h3 id="input-examples">Custom styles while dragging</h3>
+        <h3 id="draggable-ex-custom-styles">Custom styles while dragging</h3>
         <div className="example">
           <style>
             {`
@@ -375,7 +375,7 @@ function App() {
           &lt;DraggableLabelNumberInput&gt;
         </h2>
 
-        <h3 id="draggable-label">Default behavior</h3>
+        <h3 id="label-ex-basic">Basic example</h3>
         <div className="example">
           <DraggableLabelNumberInput value={value} onChange={setValue}>
             Draggable label:
@@ -395,7 +395,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-no-pointer-lock">Without pointer lock</h3>
+        <h3 id="label-ex-no-pointer-lock">Without pointer lock</h3>
         <div className="example">
           <DraggableLabelNumberInput
             value={value}
@@ -420,7 +420,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-modifiers">With modifier keys</h3>
+        <h3 id="label-ex-custom-modifier-keys">With modifier keys</h3>
         <div className="example">
           <DraggableLabelNumberInput
             value={value}
@@ -472,7 +472,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-events">
+        <h3 id="label-ex-drag-events">
           OnDragStart and OnDragEnd events (see console)
         </h3>
         <div className="example">
@@ -507,7 +507,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-styles">Custom styles while dragging</h3>
+        <h3 id="label-ex-custom-styles">Custom styles while dragging</h3>
         <div className="example">
           <style>
             {`
@@ -545,7 +545,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-styles">Label with no &lt;input&gt;</h3>
+        <h3 id="label-ex-no-input">Label with no &lt;input&gt;</h3>
         <div className="example">
           <DraggableLabelNumberInput value={value} onChange={setValue} noInput>
             Draggable label: <strong>{value}</strong>
@@ -566,7 +566,7 @@ function App() {
 `}
         />
 
-        <h3 id="draggable-label-input-styles">Custom input styles</h3>
+        <h3 id="label-ex-custom-input-styles">Custom input styles</h3>
         <div className="example">
           <style>
             {`
@@ -617,7 +617,7 @@ function App() {
         />
 
         <div className="api-section">
-          <h2 id="label-input-api">Draggable Label Number Input API</h2>
+          <h2 id="label-api">Draggable Label Number Input API</h2>
           <p>
             The DraggableLabelNumberInput component accepts the following props:
           </p>

@@ -3,7 +3,14 @@ const Sidebar = () => {
     <div className="sidebar-container">
       <ul className="sidebar">
         <li>
-          <a href="#intro">Introduction</a>
+          <a href="#intro">
+            <strong>Introduction</strong>
+          </a>
+        </li>
+        <li>
+          <a href="#installation">
+            <strong>Installation</strong>
+          </a>
         </li>
         <li>
           <a href="#draggable-number-input">
@@ -37,9 +44,6 @@ const Sidebar = () => {
               </ul>
             </li>
             <li>
-              <a href="#input-installation">Installation</a>
-            </li>
-            <li>
               <a href="#input-api">API</a>
             </li>
           </ul>
@@ -50,7 +54,7 @@ const Sidebar = () => {
           </a>
           <ul>
             <li>
-              <a href="#label-examples">Examples</a>
+              <a href="#draggable-label-number-input">Examples</a>
               <ul className="example-list">
                 <li>
                   <a href="#label-ex-basic">Basic example</a>
@@ -80,15 +84,18 @@ const Sidebar = () => {
               </ul>
             </li>
             <li>
-              <a href="#label-installation">Installation</a>
-            </li>
-            <li>
               <a href="#label-api">API</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="https://github.com/yourusername/yourrepo">GitHub Repo</a>
+          <a
+            href="https://github.com/brettlyne/draggable-number-input"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <strong>GitHub Repo</strong>
+          </a>
         </li>
       </ul>
     </div>
