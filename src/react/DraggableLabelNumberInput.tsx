@@ -134,9 +134,13 @@ export function DraggableLabelNumberInput({
     [constrainedOnChange, getModifiers]
   );
 
-  const handleArrowKeyDown = (event: React.KeyboardEvent) => {
-    const { multiplier } = getModifiers(event);
-    handleArrow(event, multiplier, value, constrainedOnChange);
+  const handleArrowKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault(); // prevent default to avoid any selection / flickering
+      const { multiplier } = getModifiers(e);
+      const newValue = handleArrow(e, multiplier, value);
+      constrainedOnChange(newValue);
+    }
   };
 
   const handleModifierKeyDuringDrag = useCallback(

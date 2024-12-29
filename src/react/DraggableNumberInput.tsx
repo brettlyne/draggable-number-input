@@ -128,8 +128,12 @@ export function DraggableNumberInput({
   );
 
   const handleArrowKeyDown = (e: React.KeyboardEvent) => {
-    const { multiplier } = getModifiers(e);
-    handleArrow(e, multiplier, value, constrainedOnChange);
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault(); // prevent default to avoid any selection / flickering
+      const { multiplier } = getModifiers(e);
+      const newValue = handleArrow(e, multiplier, value);
+      constrainedOnChange(newValue);
+    }
   };
 
   const handleModifierKeyDuringDrag = useCallback(

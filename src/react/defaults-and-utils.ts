@@ -33,13 +33,13 @@ export function getDecimalPlaces(multiplier: number): number {
 export function handleArrow(
   e: React.KeyboardEvent,
   multiplier: number,
-  value: number,
-  onChange: (value: number) => void
+  value: number
 ) {
   if (e.key === "ArrowUp") {
-    onChange(value + multiplier);
+    return value + multiplier;
   }
   if (e.key === "ArrowDown") {
-    onChange(value - multiplier);
+    return value - multiplier;
   }
+  return value;
 }
