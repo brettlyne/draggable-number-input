@@ -90,10 +90,6 @@ export function DraggableLabelNumberInput({
       startValue.current = value;
       totalMovement.current = 0;
       setCursorPosition({ x, y });
-
-      if (!disablePointerLock && !(e instanceof TouchEvent)) {
-        labelRef.current?.requestPointerLock?.();
-      }
     },
     [value, disablePointerLock]
   );
@@ -185,6 +181,9 @@ export function DraggableLabelNumberInput({
           ? x - startX.current
           : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
+        if (!disablePointerLock && !(e instanceof TouchEvent)) {
+          labelRef.current?.requestPointerLock?.();
+        }
         setIsDragging(true);
         document.addEventListener("keydown", handleModifierKeyDuringDrag);
         document.addEventListener("keyup", handleModifierKeyDuringDrag);
@@ -276,7 +275,7 @@ export function DraggableLabelNumberInput({
           {...inputProps}
         />
       )}
-      {isMouseDown && !disablePointerLock && (
+      {isDragging && !disablePointerLock && (
         <DragCursor cursorPosition={cursorPosition} />
       )}
     </label>
