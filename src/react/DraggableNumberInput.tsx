@@ -83,10 +83,6 @@ export function DraggableNumberInput({
       startValue.current = value;
       totalMovement.current = 0;
       setCursorPosition({ x, y });
-
-      if (!disablePointerLock && !(e instanceof TouchEvent)) {
-        inputRef.current?.requestPointerLock?.();
-      }
     },
     [value, disablePointerLock]
   );
@@ -178,6 +174,9 @@ export function DraggableNumberInput({
           ? x - startX.current
           : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
+        if (!disablePointerLock && !(e instanceof TouchEvent)) {
+          inputRef.current?.requestPointerLock?.();
+        }
         setIsDragging(true);
         document.addEventListener("keydown", handleModifierKeyDuringDrag);
         document.addEventListener("keyup", handleModifierKeyDuringDrag);
@@ -255,7 +254,7 @@ export function DraggableNumberInput({
         }}
         {...restProps}
       />
-      {isMouseDown && !disablePointerLock && (
+      {isDragging && !disablePointerLock && (
         <DragCursor cursorPosition={cursorPosition} />
       )}
     </>
