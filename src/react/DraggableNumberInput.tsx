@@ -150,14 +150,14 @@ export function DraggableNumberInput({
     (e: MouseEvent | TouchEvent) => {
       if (!isMouseDown) return;
 
-      if (e instanceof TouchEvent) {
+      if ("touches" in e) {
         e.preventDefault();
       }
 
       if (
         !disablePointerLock &&
         document.pointerLockElement &&
-        e instanceof MouseEvent
+        !("touches" in e)
       ) {
         setCursorPosition((prev) => {
           const width = window.innerWidth;
@@ -168,13 +168,13 @@ export function DraggableNumberInput({
         });
       }
 
-      const x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+      const x = "touches" in e ? e.touches[0].clientX : e.clientX;
       const newMovement =
-        disablePointerLock || e instanceof TouchEvent
+        disablePointerLock || "touches" in e
           ? x - startX.current
           : totalMovement.current + e.movementX;
       if (!isDragging && newMovement !== 0) {
-        if (!disablePointerLock && !(e instanceof TouchEvent)) {
+        if (!disablePointerLock && !("touches" in e)) {
           inputRef.current?.requestPointerLock?.();
         }
         setIsDragging(true);
