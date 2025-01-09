@@ -34,25 +34,59 @@ function App() {
         </p>
 
         <h3 id="input-examples">Basic examples</h3>
+        <pre>
+          <code>
+            {`import {  DraggableNumberInput, DraggableLabelNumberInput } from "draggable-number-input";
+// then within your component ...
+const [value, setValue] = useState(0);
+`}
+          </code>
+        </pre>
+        <p style={{ marginTop: "6px" }}>then...</p>
         <div style={{ display: "flex", gap: "20px" }}>
-          <div className="example top-example" style={{ flex: 1 }}>
-            <p>Draggable Number Input</p>
-            <label>
-              <strong>Drag on Input:</strong>
-              <DraggableNumberInput
-                value={value}
-                onChange={setValue}
-                style={{ outline: "6px solid gold" }}
-              />
-            </label>
+          <div style={{ flex: 1 }}>
+            <div className="example top-example">
+              <p>Draggable Number Input</p>
+              <label>
+                <strong>Drag on Input:</strong>
+                <DraggableNumberInput
+                  value={value}
+                  onChange={setValue}
+                  style={{ outline: "6px solid gold" }}
+                />
+              </label>
+            </div>
+            <pre style={{ marginTop: "12px", padding: "8px 12px" }}>
+              <code>
+                {`<label>
+  Lucky number:
+  <DraggableNumberInput
+    value={value}
+    onChange={setValue}
+  />
+</label>`}
+              </code>
+            </pre>
           </div>
-          <div className="example top-example" style={{ flex: 1 }}>
-            <p>Draggable Label Number Input</p>
-            <DraggableLabelNumberInput value={value} onChange={setValue}>
-              <strong style={{ borderBottom: "6px solid gold" }}>
-                Drag on Label:
-              </strong>
-            </DraggableLabelNumberInput>
+          <div style={{ flex: 1 }}>
+            <div className="example top-example" style={{ flex: 1 }}>
+              <p>Draggable Label Number Input</p>
+              <DraggableLabelNumberInput value={value} onChange={setValue}>
+                <strong style={{ borderBottom: "6px solid gold" }}>
+                  Drag on Label:
+                </strong>
+              </DraggableLabelNumberInput>
+            </div>
+            <pre style={{ marginTop: "12px", padding: "8px 12px" }}>
+              <code>
+                {`<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+>
+  Drag on Label:
+</DraggableLabelNumberInput>`}
+              </code>
+            </pre>
           </div>
         </div>
 
@@ -96,32 +130,6 @@ function App() {
           </pre>
         </p>
 
-        <h3>Usage</h3>
-        <pre>
-          <code>
-            {`import { 
-  DraggableNumberInput, 
-  DraggableLabelNumberInput 
-} from "draggable-number-input";
-
-...
-
-const DemoInputs = () => {
-  const [value, setValue] = useState(0);
-  return (<>
-    <label>
-      Lucky number:
-      <DraggableNumberInput value={value} onChange={setValue} />
-    </label>
-
-    <DraggableLabelNumberInput value={value} onChange={setValue}>
-      Drag me:
-    </DraggableLabelNumberInput>
-  </>);
-}`}
-          </code>
-        </pre>
-
         <h2 id="draggable-number-input">&lt;DraggableNumberInput&gt;</h2>
 
         <h3 id="draggable-ex-basic">Basic example</h3>
@@ -137,42 +145,6 @@ const DemoInputs = () => {
 <label>
   Lucky number:
   <DraggableNumberInput value={value} onChange={setValue} />
-</label>
-`}
-          svelte={`
-`}
-        />
-
-        <h3 id="draggable-ex-no-pointer-lock">No pointer lock</h3>
-        <p>
-          By default{" "}
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API">
-            pointer lock
-          </a>{" "}
-          is enabled, and we can drag indefinitely until we reach the desired
-          number. Additional drags are also made easier since the cursor snaps
-          back to the input when you release the mouse.
-        </p>
-        <p>
-          In this <code>disablePointerLock</code> version, you can only drag to
-          the edge of the screen.
-        </p>
-        <div className="example">
-          <label>
-            Lucky number:
-            <DraggableNumberInput
-              value={value}
-              onChange={setValue}
-              disablePointerLock
-            />
-          </label>
-        </div>
-        <CodePreview
-          mode={mode}
-          react={`
-<label>
-  Lucky number:
-  <DraggableNumberInput value={value} onChange={setValue} disablePointerLock  />
 </label>
 `}
           svelte={`
@@ -227,6 +199,42 @@ const DemoInputs = () => {
       metaKey:  { multiplier: 100,  sensitivity: 0.125 },
     }}
   />
+</label>
+`}
+          svelte={`
+`}
+        />
+
+        <h3 id="draggable-ex-no-pointer-lock">No pointer lock</h3>
+        <p>
+          By default{" "}
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API">
+            pointer lock
+          </a>{" "}
+          is enabled, and we can drag indefinitely until we reach the desired
+          number. Additional drags are also made easier since the cursor snaps
+          back to the input when you release the mouse.
+        </p>
+        <p>
+          In this <code>disablePointerLock</code> version, you can only drag to
+          the edge of the screen.
+        </p>
+        <div className="example">
+          <label>
+            Lucky number:
+            <DraggableNumberInput
+              value={value}
+              onChange={setValue}
+              disablePointerLock
+            />
+          </label>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<label>
+  Lucky number:
+  <DraggableNumberInput value={value} onChange={setValue} disablePointerLock  />
 </label>
 `}
           svelte={`
@@ -473,32 +481,7 @@ const DemoInputs = () => {
 `}
         />
 
-        <h3 id="label-ex-no-pointer-lock">Without pointer lock</h3>
-        <div className="example">
-          <DraggableLabelNumberInput
-            value={value}
-            onChange={setValue}
-            disablePointerLock
-          >
-            Draggable label (no pointer lock):
-          </DraggableLabelNumberInput>
-        </div>
-        <CodePreview
-          mode={mode}
-          react={`
-<DraggableLabelNumberInput
-  value={value}
-  onChange={setValue}
-  disablePointerLock
->
-  Draggable label (no pointer lock):
-</DraggableLabelNumberInput>
-`}
-          svelte={`
-`}
-        />
-
-        <h3 id="label-ex-custom-modifier-keys">With modifier keys</h3>
+        <h3 id="label-ex-custom-modifier-keys">Custom modifier keys</h3>
         <div className="example">
           <DraggableLabelNumberInput
             value={value}
@@ -544,6 +527,31 @@ const DemoInputs = () => {
   }}
 >
   Draggable label:
+</DraggableLabelNumberInput>
+`}
+          svelte={`
+`}
+        />
+
+        <h3 id="label-ex-no-pointer-lock">Without pointer lock</h3>
+        <div className="example">
+          <DraggableLabelNumberInput
+            value={value}
+            onChange={setValue}
+            disablePointerLock
+          >
+            Draggable label (no pointer lock):
+          </DraggableLabelNumberInput>
+        </div>
+        <CodePreview
+          mode={mode}
+          react={`
+<DraggableLabelNumberInput
+  value={value}
+  onChange={setValue}
+  disablePointerLock
+>
+  Draggable label (no pointer lock):
 </DraggableLabelNumberInput>
 `}
           svelte={`

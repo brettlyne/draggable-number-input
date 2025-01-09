@@ -2,12 +2,12 @@
 
 <a href="https://www.npmjs.com/package/draggable-number-input"><img src="https://img.shields.io/npm/v/draggable-number-input"></a>
 
+A React component intended to replicate the draggable number input behavior
+we see in applications like Blender, Figma, and After Effects.
+
 ![Draggable Number Input Preview](draggable-input-preview.gif)
 
-## [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/) 👈 👈
-
-A [React](https://react.dev) component intended to replicate the draggable number input behavior
-we see in applications like Blender, Figma, and After Effects.
+## [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/) 👈
 
 ## Installation
 
@@ -23,7 +23,7 @@ import {
   DraggableLabelNumberInput,
 } from "draggable-number-input";
 
-// Basic usage with input
+// Basic usage with Draggable Number Input
 function MyComponent() {
   const [value, setValue] = useState(0);
   return (
@@ -34,7 +34,7 @@ function MyComponent() {
   );
 }
 
-// Basic usage with label
+// Basic usage with Draggable Label
 function MyLabelComponent() {
   const [value, setValue] = useState(0);
   return (
@@ -54,8 +54,6 @@ function MyLabelComponent() {
 - multipliers serve as a "snapping" value while dragging, ie: if you're holding shift you'll move by 10 and snap to the nearest 10
 - touch interactions are supported in addition to mouse dragging
 
-## API
+## API + Demos
 
-See the [docs](https://brettlyne.github.io/draggable-number-input/)
-
-## [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/) 👈 👈
+### See [Interactive Docs & Examples](https://brettlyne.github.io/draggable-number-input/)
